@@ -11,6 +11,7 @@ import java.util.List;
 public class StudentCourseDto {
     private StudentCourseId id;
     private boolean isFinished;
+    private int finalGrade;
     private String studentName;
     private String courseName;
     private List<GradeDto> grades = new ArrayList<>();
@@ -18,11 +19,14 @@ public class StudentCourseDto {
     public List<GradeDto> getGrades(List<Grade> grades){
         List<GradeDto> gradeDtoList = new ArrayList<>();
 
+
+
         for(Grade grade : grades) {
             GradeDto gradeDto = new GradeDto();
 
             gradeDto.setId(gradeDto.getId());
             gradeDto.setValue(grade.getValue());
+
 
             gradeDtoList.add(gradeDto);
         }

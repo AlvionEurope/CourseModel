@@ -25,8 +25,8 @@ public class StudentCourse {
 
     @Column
     private boolean isFinished;
-//    @Column
-//    private int finalEvaluation;
+    @Column
+    private int finalGrade;
 
     public StudentCourse (Student student, Course course) {
         // create primary key
@@ -36,6 +36,7 @@ public class StudentCourse {
         this.student = student;
         this.course = course;
         this.isFinished = false;
+        this.finalGrade = 0;
 
         // update relationships to assure referential integrity
         student.getStudentCourses().add(this);

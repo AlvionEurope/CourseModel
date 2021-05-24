@@ -18,7 +18,7 @@ public class Instructor {
     private String name;
     private String address;
     private String phone;
-    private float payment;
+    private Float payment;
 
     @ManyToMany(mappedBy = "instructors")
     private List<Course> courses = new ArrayList<>();

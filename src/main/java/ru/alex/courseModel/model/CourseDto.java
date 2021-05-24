@@ -46,6 +46,7 @@ public class CourseDto {
                 studentCourseDto.setStudentName(studentCourse.getStudent().getName());
                 studentCourseDto.setCourseName(studentCourse.getCourse().getName());
                 studentCourseDto.setFinished(studentCourse.isFinished());
+                studentCourseDto.setFinalGrade(studentCourse.getFinalGrade());
 
                 studentCourseDtoList.add(studentCourseDto);
             }

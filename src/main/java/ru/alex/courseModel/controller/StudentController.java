@@ -1,6 +1,7 @@
 package ru.alex.courseModel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.*;
 import ru.alex.courseModel.model.StudentDto;
@@ -11,7 +12,7 @@ import ru.alex.courseModel.service.StudentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/student")
 public class StudentController {
 
     @Autowired
@@ -22,52 +23,60 @@ public class StudentController {
     @Autowired
     private StudentCourseService studentCourseService;
 
-//    @PostMapping
-//    public ResponseEntity addStudent(@RequestBody Student entity){
-//        try{
-//            studentService.saveStudent(entity);
-//            return ResponseEntity.ok("Студент успешно сохранен");
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Что-то пошло не так :(");
-//        }
-//    }
-
-    @GetMapping
-    public List<StudentDto> stud (){
-        Student student = studentService.getStudentById(4);
-        Course course = courseService.getCourseById(22);
-        StudentCourseId id = new StudentCourseId(student.getId(), course.getId());
-//        student.set
-//        student.set
-//        student.getStudentCourse(id);
-        student.addCourse(course);
-
-        student.getStudentCourse(id).addGrade(new Grade(2));
-        student.getStudentCourse(id).addGrade(new Grade(3));
-        student.getStudentCourse(id).addGrade(new Grade(4));
-        student.getStudentCourse(id).addGrade(new Grade(5));
-
-
-        studentService.saveStudent(student);
-
-        StudentDto studentDto = new StudentDto();
-        return studentDto.getStudentDtoList(studentService.getAllStudents());
-    }
-
-//    @PutMapping("/update")
-//    public ResponseEntity updateStudent(@RequestParam long id, @RequestBody Student entity){
-//        try{
-//            return ResponseEntity.ok(studentService.update(id, entity));
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Что-то пошло не так :(");
-//        }
-//    }
-
     @GetMapping("/all")
     public List<StudentDto> getStudents() {
         StudentDto studentDto = new StudentDto();
         return studentDto.getStudentDtoList(studentService.getAllStudents());
     }
+
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable long id) {
+        return studentService.getStudentById(id);
+    }
+
+    @PostMapping("/add")
+    public Student addStudent(@RequestBody Student student) {
+        return studentService.saveStudent(student);
+    }
+
+    @DeleteMapping("/del-{id}")
+    public long deleteStudent(@PathVariable long id){
+        studentService.deleteStudent(id);
+        return id;
+    }
+
+    @PutMapping("/update-{id}")
+    public Student updateStudent(@PathVariable long id, @RequestBody Student student){
+        return studentService.updateStudent(id, student);
+    }
+}
+
+
+//    @GetMapping
+//    public List<StudentDto> stud (){
+//        Student student = studentService.getStudentById(4);
+//        Course course = courseService.getCourseById(22);
+//        StudentCourseId id = new StudentCourseId(student.getId(), course.getId());
+////        student.set
+////        student.set
+////        student.getStudentCourse(id);
+//        student.addCourse(course);
+//
+////        student.getStudentCourse(id).addGrade(new Grade(2));
+////        student.getStudentCourse(id).addGrade(new Grade(3));
+////        student.getStudentCourse(id).addGrade(new Grade(4));
+////        student.getStudentCourse(id).addGrade(new Grade(5));
+//
+//
+//        studentService.saveStudent(student);
+//
+//        StudentDto studentDto = new StudentDto();
+//        return studentDto.getStudentDtoList(studentService.getAllStudents());
+//    }
+
+
+
+
 
 //    @GetMapping("/addCourse")
 //    public ResponseEntity addCourse(@RequestParam ("courseId") Long courseId,@RequestParam ("studentId") Long studentId){
@@ -87,14 +96,7 @@ public class StudentController {
 //    }
 
 
-//    @DeleteMapping("/del-{id}")
-//    public ResponseEntity deleteStudent(@PathVariable long id){
-//        try{
-//            return ResponseEntity.ok(studentService.delete(id));
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Что-то пошло не так :(");
-//        }
-//    }
+
 //
 //    @GetMapping("/get-{id}")
 //    public ResponseEntity getStudent(@PathVariable long id){
@@ -131,8 +133,3 @@ public class StudentController {
 //            return ResponseEntity.badRequest().body("Ошибка!");
 //        }
 //    }
-
-
-
-
-}

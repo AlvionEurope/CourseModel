@@ -22,7 +22,7 @@ public class Student {
     private String phone;
     private String email;
 
-    @Column(name = "grade_book")
+    @Column(name = "grade_book", unique = true, nullable = false)
     private int gradeBook;
 
     @Column(name = "academic_performance")
@@ -30,43 +30,5 @@ public class Student {
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<StudentCourse> studentCourses = new ArrayList<>();
-
-    public void addStudentCourseGrade(StudentCourse studentCourse, Grade grade){
-        studentCourse.getGrades().add(grade);
-    }
-
-    public void updateStudentCourseGrade(StudentCourse studentCourse, int id, Grade grade){
-        studentCourse.getGrades().set(id, grade);
-    }
-
-    public void deleteStudentCourseGrade(StudentCourse studentCourse, int id){
-        studentCourse.getGrades().remove(id);
-    }
-
-//------------------------------------------------------------------------------
-
-    public StudentCourse getStudentCourse(StudentCourseId id){
-
-        return studentCourses.stream()
-                .filter(studentCourse -> studentCourse.getId().canEqual(id))
-                .findFirst().get();
-    }
-
-
-    public void addCourse(Course course){
-        StudentCourse studentCourse = new StudentCourse(this, course);
-        studentCourse.setCourse(course);
-
-        this.getStudentCourses().add(studentCourse);
-        studentCourse.setStudent(this);
-    }
-
-    /**
-    This method not needed. It is use for checks
-     */
-    public void removeCourse(StudentCourse studentCourse){
-        this.getStudentCourses().remove(studentCourse);
-        studentCourse.setStudent(null);
-    }
 
 }

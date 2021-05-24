@@ -32,12 +32,20 @@ public class InstructorService {
     }
 
     public Instructor addCourse(long courseId, long instructorId){
-
         Instructor instructor = instructorRepo.findById(instructorId).get();
-        instructor.addCourse(courseRepo.findById(courseId).get());
+        Course course = courseRepo.findById(courseId).get();
+        instructor.addCourse(course);
+        course.addInstructor(instructor);
         return saveInstructor(instructor);
     }
 
+    public Instructor removeCourse(long courseId, long instructorId){
+        Instructor instructor = instructorRepo.findById(instructorId).get();
+        Course course = courseRepo.findById(courseId).get();
+        instructor.removeCourse(course);
+        course.removeInstructor(instructor);
+        return saveInstructor(instructor);
+}
 
 //    public List<InstructorDto> getAll(){
 //        List<InstructorDto> instructors = new ArrayList<>();

@@ -2,17 +2,12 @@ package ru.alex.courseModel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import ru.alex.courseModel.entity.*;
-import ru.alex.courseModel.model.InstructorDto;
-import ru.alex.courseModel.model.StudentDto;
 import ru.alex.courseModel.reposttory.CourseRepo;
+import ru.alex.courseModel.reposttory.StudentCourseRepo;
 import ru.alex.courseModel.reposttory.StudentRepo;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -21,11 +16,7 @@ public class StudentService {
     private StudentRepo studentRepo;
 
     @Autowired
-    private CourseRepo courseRepo;
-
-//    public StudentDto saveStudent(Student student) {
-//        return StudentDto.toDto(studentRepo.save(student));
-//    }
+    private StudentCourseService studentCourseService;
 
     public Student saveStudent(Student student) {
         return studentRepo.save(student);
@@ -39,62 +30,59 @@ public class StudentService {
         return studentRepo.findById(id).get();
     }
 
-
-
-
-//    public Student addCourse(Long courseId, Long studentId) {
-//        Student student = studentRepo.findById(studentId).get();
-//        student.addCourse(courseRepo.findById(courseId).get());
-//        return saveStudent(student);
-//    }
-
-//    public StudentDto getOne(long id){
-//        return StudentDto.toDto(studentRepo.findById(id).get());
-//    }
-
-    public Student update(long id, Student student){
+    public Student updateStudent(long id, Student student){
         student.setId(id);
         return saveStudent(student);
     }
 
-//    public StudentCourse getStudentCourseById(Course course){
-//
-//    }
+    public void deleteStudent (long id){
+        studentRepo.deleteById(id);
+    }
 
-//    public long delete(long id){
-//        if(studentRepo.existsById(id)) {
-//            studentRepo.deleteById(id);
-//        }
-//        return id;
-//    }
+    public StudentCourse getStudentCourse(StudentCourseId id){
+        return studentCourseService.getStudentCourse(id);
+    }
 
-//    public List<Course> getCurrentCourses(long studentId){
-//        return getStudentCourses(studentId, false);
-//    }
-//
-//    public List<Course> getCompletedCourses(long studentId){
-//        return getStudentCourses(studentId, true);
-//    }
-//
+    public List<Course> getCurrentCourses(Student student){
+        return studentCourseService.getCurrentCourses(student);
+    }
+
+    public List<Course> getFinishedCourses (Student student){
+        return studentCourseService.getFinishedCourses(student);
+    }
+
+    public void addStudentCourse(Student student, Course course){
+        studentCourseService.addStudentCourse(student, course);
+    }
+
+    public void deleteStudentCourse(Student student, Course course){
+        studentCourseService.removeStudentCourse(student, course);
+    }
+
+
+
+
+
+
+
+    public void addStudentCourseGrade(StudentCourse studentCourse, Grade grade){
+        studentCourse.getGrades().add(grade);
+    }
+
+    public void updateStudentCourseGrade(StudentCourse studentCourse, int id, Grade grade){
+        studentCourse.getGrades().set(id, grade);
+    }
+
+    public void deleteStudentCourseGrade(StudentCourse studentCourse, int id){
+        studentCourse.getGrades().remove(id);
+    }
+
+
+
+
+
 //    public List<Course> getAvailableCourses(long studentId){
 //        return getStudentCourses(studentId);
-//    }
-//
-//    private List<Course> getStudentCourses(long studentId, boolean isFinished) {
-//        Student student = getOne(studentId);
-//        return student.getStudentCourses()
-//                .stream()
-//                .filter(entity -> entity.isFinished() && isFinished)
-//                .map(StudentCourse::getCourse)
-//                .collect(Collectors.toList());
-//    }
-//
-//    private List<Course> getStudentCourses(long studentId) {
-//        Student student = getOne(studentId);
-//        return student.getStudentCourses()
-//                .stream()
-//                .map(StudentCourse::getCourse)
-//                .collect(Collectors.toList());
 //    }
 //
 
