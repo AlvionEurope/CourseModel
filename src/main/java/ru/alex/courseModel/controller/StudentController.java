@@ -30,13 +30,13 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable long id) {
-        return studentService.getStudentById(id);
+    public StudentDto getStudentById(@PathVariable long id) {
+        return new StudentDto(studentService.getStudentById(id));
     }
 
     @PostMapping("/add")
-    public Student addStudent(@RequestBody Student student) {
-        return studentService.saveStudent(student);
+    public StudentDto addStudent(@RequestBody Student student) {
+        return new StudentDto(studentService.saveStudent(student));
     }
 
     @DeleteMapping("/del-{id}")
@@ -46,9 +46,15 @@ public class StudentController {
     }
 
     @PutMapping("/update-{id}")
-    public Student updateStudent(@PathVariable long id, @RequestBody Student student){
-        return studentService.updateStudent(id, student);
+    public StudentDto updateStudent(@PathVariable long id, @RequestBody Student student){
+        return new StudentDto(studentService.updateStudent(id, student));
     }
+
+    @GetMapping("/addcourse")
+    public void addCourse(@RequestParam ("courseId") long courseId,@RequestParam ("studentId") long studentId){
+        studentService.addStudentCourse(studentService.getStudentById(studentId), courseService.getCourseById(courseId));
+    }
+
 }
 
 
@@ -78,14 +84,7 @@ public class StudentController {
 
 
 
-//    @GetMapping("/addCourse")
-//    public ResponseEntity addCourse(@RequestParam ("courseId") Long courseId,@RequestParam ("studentId") Long studentId){
-//        try{
-//            return ResponseEntity.ok(studentService.addCourse(courseId, studentId));
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Что-то пошло не так :(");
-//        }
-//    }
+
 //    @GetMapping("/all")
 //    public ResponseEntity getStudents(){
 //        try{

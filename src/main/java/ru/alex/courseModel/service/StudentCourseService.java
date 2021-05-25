@@ -4,7 +4,9 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.courseModel.entity.*;
+import ru.alex.courseModel.reposttory.CourseRepo;
 import ru.alex.courseModel.reposttory.StudentCourseRepo;
+import ru.alex.courseModel.reposttory.StudentRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,10 @@ public class StudentCourseService {
 
     @Autowired
     private StudentCourseRepo studentCourseRepo;
+    @Autowired
+    private CourseRepo courseRepo;
+    @Autowired
+    private StudentRepo studentRepo;
 
     public  List<StudentCourse> getStudentCourses(Student student){
         List<StudentCourse> studentCourses = new ArrayList<>();
@@ -60,6 +66,8 @@ public class StudentCourseService {
 
     public void addStudentCourse(Student student, Course course){
         new StudentCourse(student, course);
+        studentRepo.save(student);
+//        courseRepo.save(course);
     }
 
     public void removeStudentCourse(Student student, Course course){

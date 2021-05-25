@@ -13,6 +13,7 @@ import java.util.Set;
 @Table(name = "student")
 public class Student {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -31,4 +32,16 @@ public class Student {
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<StudentCourse> studentCourses = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", gradeBook=" + gradeBook +
+                ", academicPerformance=" + academicPerformance +
+                '}';
+    }
 }

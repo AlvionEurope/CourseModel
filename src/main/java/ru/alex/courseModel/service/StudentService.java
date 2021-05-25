@@ -16,6 +16,9 @@ public class StudentService {
     private StudentRepo studentRepo;
 
     @Autowired
+    private CourseRepo courseRepo;
+
+    @Autowired
     private StudentCourseService studentCourseService;
 
     public Student saveStudent(Student student) {
@@ -53,6 +56,8 @@ public class StudentService {
 
     public void addStudentCourse(Student student, Course course){
         studentCourseService.addStudentCourse(student, course);
+//        studentRepo.save(student);
+//        courseRepo.save(course);
     }
 
     public void deleteStudentCourse(Student student, Course course){

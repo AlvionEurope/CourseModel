@@ -28,6 +28,8 @@ public class StudentCourse {
     @Column
     private int finalGrade;
 
+
+
     public StudentCourse (Student student, Course course) {
         // create primary key
         this.id = new StudentCourseId(student.getId(), course.getId());
@@ -59,6 +61,16 @@ public class StudentCourse {
     public void removeGrade(Grade grade){
         this.grades.remove(grade);
         grade.setStudentCourse(null);
+    }
+
+    @Override
+    public String toString() {
+        return "StudentCourse{" +
+                "id=" + id +
+                ", isFinished=" + isFinished +
+                ", finalGrade=" + finalGrade +
+                ", grades=" + grades +
+                '}';
     }
 }
 

@@ -24,13 +24,13 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public Course getCourseById(@PathVariable long id) {
-        return courseService.getCourseById(id);
+    public CourseDto getCourseById(@PathVariable long id) {
+        return new CourseDto(courseService.getCourseById(id));
     }
 
     @PostMapping("/add")
-    public Course addCourse(@RequestBody Course course) {
-        return courseService.saveCourse(course);
+    public CourseDto addCourse(@RequestBody Course course) {
+        return new CourseDto(courseService.saveCourse(course));
     }
 
     @DeleteMapping("/del-{id}")
@@ -40,7 +40,7 @@ public class CourseController {
     }
 
     @PutMapping("/update-{id}")
-    public Course updateCourse(@PathVariable long id, @RequestBody Course course){
-        return courseService.updateCourse(id, course);
+    public CourseDto updateCourse(@PathVariable long id, @RequestBody Course course){
+        return new CourseDto(courseService.updateCourse(id, course));
     }
 }

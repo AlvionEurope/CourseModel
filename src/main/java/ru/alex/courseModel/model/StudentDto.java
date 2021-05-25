@@ -1,6 +1,7 @@
 package ru.alex.courseModel.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.alex.courseModel.entity.Course;
 import ru.alex.courseModel.entity.Instructor;
 import ru.alex.courseModel.entity.Student;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
 public class StudentDto {
 
     private long id;
@@ -25,30 +27,26 @@ public class StudentDto {
     private List<StudentCourseDto> studentCourseDtoList;
     private List<CourseDto> courseDtoList;
 
+    public StudentDto(Student student) {
+        this.id = student.getId();
+        this.name = student.getName();
+        this.address = student.getAddress();
+        this.phone = student.getPhone();
+        this.email = student.getEmail();
+        this.gradeBook = student.getGradeBook();
+        this.academicPerformance = student.getAcademicPerformance();
+    }
+
     public List<StudentDto> getStudentDtoList(List<Student> students){
         List<StudentDto> studentDtoList = new ArrayList<>();
 
         for(Student student : students){
             courseDtoList = new ArrayList<>();
             studentCourseDtoList = new ArrayList<>();
-            StudentDto studentDTO = new StudentDto();
-
-            studentDTO.setId(student.getId());
-            studentDTO.setName(student.getName());
-            studentDTO.setAddress(student.getAddress());
-            studentDTO.setEmail(student.getEmail());
-            studentDTO.setPhone(student.getPhone());
-            studentDTO.setGradeBook(student.getGradeBook());
-            studentDTO.setAcademicPerformance(student.getAcademicPerformance());
+            StudentDto studentDTO = new StudentDto(student);
 
             for(StudentCourse studentCourse : student.getStudentCourses()){
-                StudentCourseDto studentCourseDto = new StudentCourseDto();
-
-                studentCourseDto.setId(studentCourse.getId());
-                studentCourseDto.setFinished(studentCourse.isFinished());
-                studentCourseDto.setCourseName(studentCourse.getCourse().getName());
-                studentCourseDto.setFinalGrade(studentCourse.getFinalGrade());
-
+                StudentCourseDto studentCourseDto = new StudentCourseDto(studentCourse);
                 studentCourseDtoList.add(studentCourseDto);
             }
 

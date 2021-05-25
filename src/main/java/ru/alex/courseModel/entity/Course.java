@@ -24,7 +24,7 @@ public class Course {
             inverseJoinColumns = {@JoinColumn(name = "instructor_id")})
     private List<Instructor> instructors = new ArrayList<>();
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "course")
     private List<StudentCourse> studentCourses = new ArrayList<>();
 
     public void addInstructor(Instructor instructor){
@@ -35,5 +35,14 @@ public class Course {
     public void removeInstructor(Instructor instructor){
         this.instructors.remove(instructor);
         instructor.getCourses().remove(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                '}';
     }
 }

@@ -16,11 +16,16 @@ public class StudentCourseDto {
     private String courseName;
     private List<GradeDto> grades = new ArrayList<>();
 
+    public StudentCourseDto(StudentCourse studentCourse) {
+        this.id = studentCourse.getId();
+        this.studentName = studentCourse.getStudent().getName();
+        this.courseName = studentCourse.getCourse().getName();
+        this.isFinished = studentCourse.isFinished();
+        this.finalGrade = studentCourse.getFinalGrade();
+    }
+
     public List<GradeDto> getGrades(List<Grade> grades){
         List<GradeDto> gradeDtoList = new ArrayList<>();
-
-
-
         for(Grade grade : grades) {
             GradeDto gradeDto = new GradeDto();
 
