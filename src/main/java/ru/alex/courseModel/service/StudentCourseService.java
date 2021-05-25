@@ -46,28 +46,27 @@ public class StudentCourseService {
         return studentCourseRepo.findById(id).get();
     }
 
-    private List<Course> getCourses(Student student, boolean finished){
+    private List<Course> getCourses(long studentId, boolean finished){
         List<Course> currentCourses = new ArrayList<>();
         for (StudentCourse studentCourse : studentCourseRepo.findAll()){
-            if(studentCourse.getStudent().equals(student) && finished){
+            if(studentCourse.getStudent().getId() == studentId && studentCourse.isFinished() == finished){
                 currentCourses.add(studentCourse.getCourse());
             }
         }
         return currentCourses;
     }
 
-    public List<Course> getCurrentCourses(Student student) {
-        return getCourses(student, false);
+    public List<Course> getCurrentCourses(long studentId) {
+        return getCourses(studentId, false);
     }
 
-    public List<Course> getFinishedCourses(Student student){
-        return getCourses(student, true);
+    public List<Course> getFinishedCourses(long studentId){
+        return getCourses(studentId, true);
     }
 
     public void addStudentCourse(Student student, Course course){
         new StudentCourse(student, course);
         studentRepo.save(student);
-//        courseRepo.save(course);
     }
 
     public void removeStudentCourse(Student student, Course course){
@@ -84,8 +83,10 @@ public class StudentCourseService {
         return studentCourse.getGrades().get(id);
     }
 
-    public void addGrade(StudentCourse studentCourse, int value){
+    public void addGrade(StudentCourseId id, int value){
+        StudentCourse studentCourse = studentCourseRepo.findById(id).get();
         studentCourse.addGrade(new Grade(value));
+        studentCourseRepo.save(studentCourse);
     }
 
     public void updateGradeById(StudentCourse studentCourse, int id, int newGradeValue){

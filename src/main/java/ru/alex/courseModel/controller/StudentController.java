@@ -1,9 +1,13 @@
 package ru.alex.courseModel.controller;
 
+import antlr.PreservingFileWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.*;
+import ru.alex.courseModel.model.CourseDto;
+import ru.alex.courseModel.model.GradeDto;
+import ru.alex.courseModel.model.StudentCourseDto;
 import ru.alex.courseModel.model.StudentDto;
 import ru.alex.courseModel.service.CourseService;
 import ru.alex.courseModel.service.StudentCourseService;
@@ -19,9 +23,6 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private CourseService courseService;
-
-    @Autowired
-    private StudentCourseService studentCourseService;
 
     @GetMapping("/all")
     public List<StudentDto> getStudents() {
@@ -46,44 +47,51 @@ public class StudentController {
     }
 
     @PutMapping("/update-{id}")
-    public StudentDto updateStudent(@PathVariable long id, @RequestBody Student student){
+    public StudentDto updateStudent(@PathVariable long id,
+                                    @RequestBody Student student){
         return new StudentDto(studentService.updateStudent(id, student));
     }
 
     @GetMapping("/addcourse")
-    public void addCourse(@RequestParam ("courseId") long courseId,@RequestParam ("studentId") long studentId){
+    public void addCourse(@RequestParam ("courseId") long courseId,
+                          @RequestParam ("studentId") long studentId){
         studentService.addStudentCourse(studentService.getStudentById(studentId), courseService.getCourseById(courseId));
     }
 
+    @GetMapping("/current-courses")
+    public List<CourseDto> allCurrentCourses(@RequestParam ("studentId") long studentId){
+        CourseDto courseDto = new CourseDto();
+        return courseDto.getCourseDtoList(studentService.getCurrentCourses(studentId));
+    }
+
+    @GetMapping("/finished-courses")
+    public List<CourseDto> allFinishedCourses(@RequestParam ("studentId") long studentId){
+        CourseDto courseDto = new CourseDto();
+        return courseDto.getCourseDtoList(studentService.getFinishedCourses(studentId));
+    }
+
+    @GetMapping("/grades")
+    public List<GradeDto> allGradesOfStudentCourse(@RequestParam ("studentId") long studentId,
+                                                   @RequestParam ("courseId") long courseId){
+        StudentCourseId id = new StudentCourseId(studentId, courseId);
+        GradeDto gradeDto = new GradeDto();
+        return gradeDto.getGradeDtoList(studentService.getStudentCourse(id).getGrades());
+    }
+
+    @GetMapping("/grades/add")
+    public List<GradeDto> addGrade(@RequestParam ("studentId") long studentId,
+                                   @RequestParam ("courseId") long courseId,
+                                   @RequestParam ("grade") int grade){
+        StudentCourseId id = new StudentCourseId(studentId, courseId);
+        studentService.addGrade(id, grade);
+        GradeDto gradeDto = new GradeDto();
+        return gradeDto.getGradeDtoList(studentService.getStudentCourse(id).getGrades());
+    }
+
+
+
+
 }
-
-
-//    @GetMapping
-//    public List<StudentDto> stud (){
-//        Student student = studentService.getStudentById(4);
-//        Course course = courseService.getCourseById(22);
-//        StudentCourseId id = new StudentCourseId(student.getId(), course.getId());
-////        student.set
-////        student.set
-////        student.getStudentCourse(id);
-//        student.addCourse(course);
-//
-////        student.getStudentCourse(id).addGrade(new Grade(2));
-////        student.getStudentCourse(id).addGrade(new Grade(3));
-////        student.getStudentCourse(id).addGrade(new Grade(4));
-////        student.getStudentCourse(id).addGrade(new Grade(5));
-//
-//
-//        studentService.saveStudent(student);
-//
-//        StudentDto studentDto = new StudentDto();
-//        return studentDto.getStudentDtoList(studentService.getAllStudents());
-//    }
-
-
-
-
-
 
 //    @GetMapping("/all")
 //    public ResponseEntity getStudents(){

@@ -18,8 +18,8 @@ public class CourseDto {
     private String name;
     private float cost;
 
-    private List<InstructorDto> instructorDtoList;
-    private List<StudentCourseDto> studentCourseDtoList;
+//    private List<InstructorDto> instructorDtoList;
+//    private List<StudentCourseDto> studentCourseDtoList;
 
     public CourseDto(Course course) {
         this.id = course.getId();
@@ -30,22 +30,22 @@ public class CourseDto {
     public List<CourseDto> getCourseDtoList(List<Course> courses){
         List<CourseDto> courseDtoList = new ArrayList<>();
         for(Course course : courses){
-            instructorDtoList = new ArrayList<>();
-            studentCourseDtoList = new ArrayList<>();
+//            instructorDtoList = new ArrayList<>();
+//            studentCourseDtoList = new ArrayList<>();
             CourseDto courseDto = new CourseDto(course);
 
-            for(Instructor instructor : course.getInstructors()){
-                InstructorDto instructorDto = new InstructorDto(instructor);
-                instructorDtoList.add(instructorDto);
-            }
+//            for(Instructor instructor : course.getInstructors()){
+//                InstructorDto instructorDto = new InstructorDto(instructor);
+//                instructorDtoList.add(instructorDto);
+//            }
+//
+//            for (StudentCourse studentCourse : course.getStudentCourses()){
+//                StudentCourseDto studentCourseDto = new StudentCourseDto(studentCourse);
+//                studentCourseDtoList.add(studentCourseDto);
+//            }
 
-            for (StudentCourse studentCourse : course.getStudentCourses()){
-                StudentCourseDto studentCourseDto = new StudentCourseDto(studentCourse);
-                studentCourseDtoList.add(studentCourseDto);
-            }
-
-            courseDto.setInstructorDtoList(instructorDtoList);
-            courseDto.setStudentCourseDtoList(studentCourseDtoList);
+//            courseDto.setInstructorDtoList(instructorDtoList);
+//            courseDto.setStudentCourseDtoList(studentCourseDtoList);
             courseDtoList.add(courseDto);
         }
 

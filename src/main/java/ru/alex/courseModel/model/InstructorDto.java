@@ -19,7 +19,7 @@ public class InstructorDto {
     private String address;
     private String phone;
     private float payment;
-    private List<CourseDto> courseDtoList;
+//    private List<CourseDto> courseDtoList;
 
     public InstructorDto(Instructor instructor) {
         this.id = instructor.getId();
@@ -33,13 +33,13 @@ public class InstructorDto {
         List<InstructorDto> instructorDtoList = new ArrayList<>();
 
         for(Instructor instructor : instructors){
-            courseDtoList = new ArrayList<>();
+//            courseDtoList = new ArrayList<>();
             InstructorDto instructorDto = new InstructorDto(instructor);
-            for(Course course : instructor.getCourses()){
-                CourseDto courseDto = new CourseDto(course);
-                courseDtoList.add(courseDto);
-            }
-            instructorDto.setCourseDtoList(courseDtoList);
+//            for(Course course : instructor.getCourses()){
+//                CourseDto courseDto = new CourseDto(course);
+//                courseDtoList.add(courseDto);
+//            }
+//            instructorDto.setCourseDtoList(courseDtoList);
             instructorDtoList.add(instructorDto);
         }
         return instructorDtoList;

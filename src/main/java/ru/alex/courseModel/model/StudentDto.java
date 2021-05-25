@@ -24,8 +24,8 @@ public class StudentDto {
     private int gradeBook;
     private float academicPerformance;
 
-    private List<StudentCourseDto> studentCourseDtoList;
-    private List<CourseDto> courseDtoList;
+//    private List<StudentCourseDto> studentCourseDtoList;
+//    private List<CourseDto> courseDtoList;
 
     public StudentDto(Student student) {
         this.id = student.getId();
@@ -41,25 +41,17 @@ public class StudentDto {
         List<StudentDto> studentDtoList = new ArrayList<>();
 
         for(Student student : students){
-            courseDtoList = new ArrayList<>();
-            studentCourseDtoList = new ArrayList<>();
+//            courseDtoList = new ArrayList<>();
+//            studentCourseDtoList = new ArrayList<>();
             StudentDto studentDTO = new StudentDto(student);
 
-            for(StudentCourse studentCourse : student.getStudentCourses()){
-                StudentCourseDto studentCourseDto = new StudentCourseDto(studentCourse);
-                studentCourseDtoList.add(studentCourseDto);
-            }
-
-//            for(Course course : student.getCourses()){
-//                CourseDto courseDto = new CourseDto();
-//                courseDto.setId(course.getId());
-//                courseDto.setName(course.getName());
-//                courseDto.setCost(course.getCost());
-//                courseDtoList.add(courseDto);
+//            for(StudentCourse studentCourse : student.getStudentCourses()){
+//                StudentCourseDto studentCourseDto = new StudentCourseDto(studentCourse);
+//                studentCourseDtoList.add(studentCourseDto);
 //            }
-
-            studentDTO.setStudentCourseDtoList(studentCourseDtoList);
-            studentDTO.setCourseDtoList(courseDtoList);
+//
+//            studentDTO.setStudentCourseDtoList(studentCourseDtoList);
+//            studentDTO.setCourseDtoList(courseDtoList);
             studentDtoList.add(studentDTO);
         }
         return studentDtoList;

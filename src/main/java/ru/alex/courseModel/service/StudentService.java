@@ -46,24 +46,25 @@ public class StudentService {
         return studentCourseService.getStudentCourse(id);
     }
 
-    public List<Course> getCurrentCourses(Student student){
-        return studentCourseService.getCurrentCourses(student);
+    public List<Course> getCurrentCourses(long studentId){
+        return studentCourseService.getCurrentCourses(studentId);
     }
 
-    public List<Course> getFinishedCourses (Student student){
-        return studentCourseService.getFinishedCourses(student);
+    public List<Course> getFinishedCourses (long studentId){
+        return studentCourseService.getFinishedCourses(studentId);
     }
 
     public void addStudentCourse(Student student, Course course){
         studentCourseService.addStudentCourse(student, course);
-//        studentRepo.save(student);
-//        courseRepo.save(course);
     }
 
     public void deleteStudentCourse(Student student, Course course){
         studentCourseService.removeStudentCourse(student, course);
     }
 
+    public void addGrade(StudentCourseId id, int value){
+        studentCourseService.addGrade(id, value);
+    }
 
 
 
