@@ -9,7 +9,6 @@ import ru.alex.courseModel.reposttory.CourseRepo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class CourseService {
@@ -18,7 +17,7 @@ public class CourseService {
     private CourseRepo courseRepo;
 
     @Autowired
-    private StudentCourseService studentCourseService;
+    private ActiveCourseService activeCourseService;
 
     @Autowired
     private InstructorService instructorService;
@@ -45,15 +44,15 @@ public class CourseService {
     }
 
     public void addStudentCourse(int courseId, long studentId){
-        studentCourseService.addStudentCourse(courseId, studentId);
+        activeCourseService.addStudentCourse(courseId, studentId);
     }
 
     public void deleteStudentCourse(int courseId, long studentId){
-        studentCourseService.removeStudentCourse(courseId, studentId);
+        activeCourseService.removeStudentCourse(courseId, studentId);
     }
 
     public List<Student> getCourseStudents(int courseId) {
-        return studentCourseService.getAllCourseStudents(courseId);
+        return activeCourseService.getAllCourseStudents(courseId);
     }
 
     public void addInstructorToCourse (int courseId, long instructorId){

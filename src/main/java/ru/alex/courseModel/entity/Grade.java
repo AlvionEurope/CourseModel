@@ -21,5 +21,5 @@ public class Grade {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private StudentCourse studentCourse;
+    private ActiveCourse activeCourse;
 }

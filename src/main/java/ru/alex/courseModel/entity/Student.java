@@ -4,9 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -30,18 +28,5 @@ public class Student {
     private float academicPerformance;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<StudentCourse> studentCourses = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", gradeBook=" + gradeBook +
-                ", academicPerformance=" + academicPerformance +
-                '}';
-    }
+    private List<ActiveCourse> activeCourses = new ArrayList<>();
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class StudentCourseDto {
+public class ActuveCourseDto {
     private StudentCourseId id;
     private boolean isFinished;
     private int finalGrade;
@@ -15,12 +15,12 @@ public class StudentCourseDto {
     private String courseName;
     private List<GradeDto> grades = new ArrayList<>();
 
-    public StudentCourseDto(StudentCourse studentCourse) {
-        this.id = studentCourse.getId();
-        this.studentName = studentCourse.getStudent().getName();
-        this.courseName = studentCourse.getCourse().getName();
-        this.isFinished = studentCourse.isFinished();
-        this.finalGrade = studentCourse.getFinalGrade();
+    public ActuveCourseDto(ActiveCourse activeCourse) {
+        this.id = activeCourse.getId();
+        this.studentName = activeCourse.getStudent().getName();
+        this.courseName = activeCourse.getCourse().getName();
+        this.isFinished = activeCourse.isFinished();
+        this.finalGrade = activeCourse.getFinalGrade();
     }
 
     public static List<GradeDto> getGrades(List<Grade> grades){

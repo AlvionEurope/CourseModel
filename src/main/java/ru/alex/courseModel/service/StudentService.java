@@ -3,8 +3,6 @@ package ru.alex.courseModel.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.courseModel.entity.*;
-import ru.alex.courseModel.reposttory.CourseRepo;
-import ru.alex.courseModel.reposttory.StudentCourseRepo;
 import ru.alex.courseModel.reposttory.StudentRepo;
 
 import java.util.List;
@@ -14,9 +12,6 @@ public class StudentService {
 
     @Autowired
     private StudentRepo studentRepo;
-
-    @Autowired
-    private StudentCourseService studentCourseService;
 
     public Student saveStudent(Student student) {
         return studentRepo.save(student);
@@ -38,57 +33,4 @@ public class StudentService {
     public void deleteStudent (long id){
         studentRepo.deleteById(id);
     }
-
-    public StudentCourse getStudentCourse(StudentCourseId id){
-        return studentCourseService.getStudentCourse(id);
-    }
-
-    public List<Course> getAllStudentCourses(long studentId){
-        return studentCourseService.getAllStudentCourses(studentId);
-    }
-
-    public List<Course> getCurrentCourses(long studentId){
-        return studentCourseService.getCurrentCourses(studentId);
-    }
-
-    public List<Course> getFinishedCourses (long studentId){
-        return studentCourseService.getFinishedCourses(studentId);
-    }
-
-    public void addStudentCourse(int courseId, long studentId){
-        studentCourseService.addStudentCourse(courseId, studentId);
-    }
-
-    public void deleteStudentCourse(int courseId, long studentId){
-        studentCourseService.removeStudentCourse(courseId, studentId);
-    }
-
-    public List<Course> getAvailableCourses(long studentId){
-        return studentCourseService.getAvailableCourse(studentId);
-    }
-
-
-
-
-    /*-------------------------------------------------------*/
-
-    public void addGrade(StudentCourseId id, int value){
-        studentCourseService.addGrade(id, value);
-    }
-
-
-    public void addStudentCourseGrade(StudentCourse studentCourse, Grade grade){
-        studentCourse.getGrades().add(grade);
-    }
-
-    public Grade updateStudentCourseGrade(long id, int value){
-        return studentCourseService.updateGradeById(id, value);
-    }
-
-    public void deleteGrade(long id){
-        studentCourseService.deleteGradeById(id);
-    }
-
-
-
 }

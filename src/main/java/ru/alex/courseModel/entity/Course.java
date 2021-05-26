@@ -27,7 +27,7 @@ public class Course {
     private Set<Instructor> instructors = new HashSet<>();
 
     @OneToMany(mappedBy = "course")
-    private List<StudentCourse> studentCourses = new ArrayList<>();
+    private List<ActiveCourse> activeCourses = new ArrayList<>();
 
     public void addInstructor(Instructor instructor){
         this.instructors.add(instructor);
@@ -40,20 +40,11 @@ public class Course {
     }
 
     public boolean isPresent (long studentId){
-        for (StudentCourse studentCourse : studentCourses){
-            if (studentCourse.getStudent().getId() == studentId){
+        for (ActiveCourse activeCourse : activeCourses){
+            if (activeCourse.getStudent().getId() == studentId){
                 return true;
             }
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", cost=" + cost +
-                '}';
     }
 }
