@@ -53,7 +53,7 @@ public class ActiveCourseService {
     }
 
     public ActiveCourse getStudentCourse(StudentCourseId id){
-        return activeCourseRepo.findById(id).get();
+        return activeCourseRepo.getOne(id);
     }
 
     public List<Course> getCurrentCourses(long studentId) {
@@ -65,17 +65,17 @@ public class ActiveCourseService {
     }
 
     public void addStudentCourse(int courseId, long studentId){
-        Student student = studentRepo.findById(studentId).get();
-        Course course = courseRepo.findById(courseId).get();
+        Student student = studentRepo.getOne(studentId);
+        Course course = courseRepo.getOne(courseId);
         new ActiveCourse(student, course);
         studentRepo.save(student);
     }
 
     public void removeStudentCourse(int courseId, long studentId){
-        Student student = studentRepo.findById(studentId).get();
-        Course course = courseRepo.findById(courseId).get();
+        Student student = studentRepo.getOne(studentId);
+        Course course = courseRepo.getOne(courseId);
         StudentCourseId id = new StudentCourseId(studentId, courseId);
-        activeCourseRepo.findById(id).get().removeCourse(student, course);
+        activeCourseRepo.getOne(id).removeCourse(student, course);
         activeCourseRepo.deleteById(id);
     }
 
@@ -90,7 +90,7 @@ public class ActiveCourseService {
     }
 
     public void addGrade(StudentCourseId id, Grade grade){
-        ActiveCourse activeCourse = activeCourseRepo.findById(id).get();
+        ActiveCourse activeCourse = activeCourseRepo.getOne(id);
         activeCourse.addGrade(grade);
         activeCourseRepo.save(activeCourse);
     }

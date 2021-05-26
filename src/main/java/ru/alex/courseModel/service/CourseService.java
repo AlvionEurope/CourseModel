@@ -31,7 +31,7 @@ public class CourseService {
     }
 
     public Course getCourseById (int id){
-        return courseRepo.findById(id).get();
+        return courseRepo.getOne(id);
     }
 
     public Course updateCourse (int id, Course course){
@@ -64,6 +64,6 @@ public class CourseService {
     }
 
     public List<Instructor> getCourseInstructors(int courseId) {
-        return new ArrayList<>(courseRepo.findById(courseId).get().getInstructors());
+        return new ArrayList<>(courseRepo.getOne(courseId).getInstructors());
     }
 }

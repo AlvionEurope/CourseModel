@@ -26,23 +26,23 @@ public class InstructorService {
     }
 
     public void addCourse(int courseId, long instructorId){
-        Instructor instructor = instructorRepo.findById(instructorId).get();
-        Course course = courseRepo.findById(courseId).get();
+        Instructor instructor = instructorRepo.getOne(instructorId);
+        Course course = courseRepo.getOne(courseId);
         instructor.addCourse(course);
         course.addInstructor(instructor);
         saveInstructor(instructor);
     }
 
     public void removeCourse(int courseId, long instructorId){
-        Instructor instructor = instructorRepo.findById(instructorId).get();
-        Course course = courseRepo.findById(courseId).get();
+        Instructor instructor = instructorRepo.getOne(instructorId);
+        Course course = courseRepo.getOne(courseId);
         instructor.removeCourse(course);
         course.removeInstructor(instructor);
         saveInstructor(instructor);
     }
 
     public Instructor getInstructorById (long id){
-        return instructorRepo.findById(id).get();
+        return instructorRepo.getOne(id);
     }
 
     public Instructor updateInstructor (long id, Instructor instructor){
