@@ -3,7 +3,6 @@ package ru.alex.courseModel.model;
 import lombok.Data;
 import ru.alex.courseModel.entity.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +23,15 @@ public class StudentCourseDto {
         this.finalGrade = studentCourse.getFinalGrade();
     }
 
-    public List<GradeDto> getGrades(List<Grade> grades){
+    public static List<GradeDto> getGrades(List<Grade> grades){
         List<GradeDto> gradeDtoList = new ArrayList<>();
-        for(Grade grade : grades) {
-            GradeDto gradeDto = new GradeDto();
-
-            gradeDto.setId(gradeDto.getId());
-            gradeDto.setValue(grade.getValue());
-
-
-            gradeDtoList.add(gradeDto);
+        if (grades != null) {
+            for (Grade grade : grades) {
+                GradeDto gradeDto = new GradeDto();
+                gradeDto.setId(gradeDto.getId());
+                gradeDto.setValue(grade.getValue());
+                gradeDtoList.add(gradeDto);
+            }
         }
         return gradeDtoList;
     }

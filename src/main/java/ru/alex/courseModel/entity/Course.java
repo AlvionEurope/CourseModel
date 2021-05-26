@@ -13,7 +13,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     private String name;
     private float cost;
@@ -32,9 +32,18 @@ public class Course {
         instructor.getCourses().add(this);
     }
 
-    public void removeInstructor(Instructor instructor){
+    public void removeInstructor (Instructor instructor){
         this.instructors.remove(instructor);
         instructor.getCourses().remove(this);
+    }
+
+    public boolean isPresent (long studentId){
+        for (StudentCourse studentCourse : studentCourses){
+            if (studentCourse.getStudent().getId() == studentId){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

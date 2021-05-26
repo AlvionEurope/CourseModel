@@ -2,13 +2,10 @@ package ru.alex.courseModel.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.alex.courseModel.entity.Course;
 import ru.alex.courseModel.entity.Instructor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +16,6 @@ public class InstructorDto {
     private String address;
     private String phone;
     private float payment;
-//    private List<CourseDto> courseDtoList;
 
     public InstructorDto(Instructor instructor) {
         this.id = instructor.getId();
@@ -29,18 +25,13 @@ public class InstructorDto {
         this.payment = instructor.getPayment();
     }
 
-    public List<InstructorDto> getInstructorDtoList(List<Instructor> instructors){
+    public static List<InstructorDto> getInstructorDtoList(List<Instructor> instructors){
+        if (instructors == null){
+            return new ArrayList<>();
+        }
         List<InstructorDto> instructorDtoList = new ArrayList<>();
-
         for(Instructor instructor : instructors){
-//            courseDtoList = new ArrayList<>();
-            InstructorDto instructorDto = new InstructorDto(instructor);
-//            for(Course course : instructor.getCourses()){
-//                CourseDto courseDto = new CourseDto(course);
-//                courseDtoList.add(courseDto);
-//            }
-//            instructorDto.setCourseDtoList(courseDtoList);
-            instructorDtoList.add(instructorDto);
+            instructorDtoList.add(new InstructorDto(instructor));
         }
         return instructorDtoList;
     }

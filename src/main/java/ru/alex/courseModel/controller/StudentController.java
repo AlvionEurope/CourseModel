@@ -1,16 +1,11 @@
 package ru.alex.courseModel.controller;
 
-import antlr.PreservingFileWriter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.*;
 import ru.alex.courseModel.model.CourseDto;
 import ru.alex.courseModel.model.GradeDto;
-import ru.alex.courseModel.model.StudentCourseDto;
 import ru.alex.courseModel.model.StudentDto;
-import ru.alex.courseModel.service.CourseService;
-import ru.alex.courseModel.service.StudentCourseService;
 import ru.alex.courseModel.service.StudentService;
 
 import java.util.List;
@@ -21,13 +16,10 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
-    @Autowired
-    private CourseService courseService;
 
     @GetMapping("/all")
     public List<StudentDto> getStudents() {
-        StudentDto studentDto = new StudentDto();
-        return studentDto.getStudentDtoList(studentService.getAllStudents());
+        return StudentDto.getStudentDtoList(studentService.getAllStudents());
     }
 
     @GetMapping("/{id}")
@@ -52,91 +44,69 @@ public class StudentController {
         return new StudentDto(studentService.updateStudent(id, student));
     }
 
-    @GetMapping("/addcourse")
-    public void addCourse(@RequestParam ("courseId") long courseId,
-                          @RequestParam ("studentId") long studentId){
-        studentService.addStudentCourse(studentService.getStudentById(studentId), courseService.getCourseById(courseId));
+    @GetMapping("/add-course")
+    public void addCourse(@RequestParam ("studentId") long studentId,
+                          @RequestParam ("courseId") int courseId){
+        studentService.addStudentCourse(studentId, courseId);
+    }
+
+    @GetMapping("/delete-course")
+    public void deleteCourse(@RequestParam ("studentId") long studentId,
+                          @RequestParam ("courseId") int courseId){
+        studentService.deleteStudentCourse(studentId, courseId);
+    }
+
+    @GetMapping("/available-courses")
+    public List<CourseDto> allAvailableCourses(@RequestParam ("studentId") long studentId){
+        return CourseDto.getCourseDtoList(studentService.getAvailableCourses(studentId));
     }
 
     @GetMapping("/current-courses")
     public List<CourseDto> allCurrentCourses(@RequestParam ("studentId") long studentId){
-        CourseDto courseDto = new CourseDto();
-        return courseDto.getCourseDtoList(studentService.getCurrentCourses(studentId));
+        return CourseDto.getCourseDtoList(studentService.getCurrentCourses(studentId));
     }
 
     @GetMapping("/finished-courses")
     public List<CourseDto> allFinishedCourses(@RequestParam ("studentId") long studentId){
-        CourseDto courseDto = new CourseDto();
-        return courseDto.getCourseDtoList(studentService.getFinishedCourses(studentId));
+        return CourseDto.getCourseDtoList(studentService.getFinishedCourses(studentId));
     }
+
+    @GetMapping("/all-student-courses")
+    public List<CourseDto> allStudentCourses(@RequestParam ("studentId") long studentId){
+        return CourseDto.getCourseDtoList(studentService.getAllStudentCourses(studentId));
+    }
+
+
+    /*-----------------------------------------------------------------------------------*/
+
+
 
     @GetMapping("/grades")
     public List<GradeDto> allGradesOfStudentCourse(@RequestParam ("studentId") long studentId,
-                                                   @RequestParam ("courseId") long courseId){
+                                                   @RequestParam ("courseId") int courseId){
         StudentCourseId id = new StudentCourseId(studentId, courseId);
-        GradeDto gradeDto = new GradeDto();
-        return gradeDto.getGradeDtoList(studentService.getStudentCourse(id).getGrades());
+        return GradeDto.getGradeDtoList(studentService.getStudentCourse(id).getGrades());
     }
 
     @GetMapping("/grades/add")
     public List<GradeDto> addGrade(@RequestParam ("studentId") long studentId,
-                                   @RequestParam ("courseId") long courseId,
+                                   @RequestParam ("courseId") int courseId,
                                    @RequestParam ("grade") int grade){
         StudentCourseId id = new StudentCourseId(studentId, courseId);
         studentService.addGrade(id, grade);
-        GradeDto gradeDto = new GradeDto();
-        return gradeDto.getGradeDtoList(studentService.getStudentCourse(id).getGrades());
+        return GradeDto.getGradeDtoList(studentService.getStudentCourse(id).getGrades());
     }
 
+    @GetMapping("/grades/update")
+    public GradeDto updateGrade(@RequestParam ("gradeId") int gradeId,
+                                   @RequestParam ("value") int value){
+        return new GradeDto(studentService.updateStudentCourseGrade(gradeId, value));
+    }
 
-
-
+    @GetMapping("/grades/delete-{id}")
+    public long deleteGrade(@PathVariable long id){
+        studentService.deleteGrade(id);
+        return id;
+    }
 }
 
-//    @GetMapping("/all")
-//    public ResponseEntity getStudents(){
-//        try{
-//            return ResponseEntity.ok(studentService.getAll());
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Что-то пошло не так :(");
-//        }
-//    }
-
-
-
-//
-//    @GetMapping("/get-{id}")
-//    public ResponseEntity getStudent(@PathVariable long id){
-//        try{
-//            return ResponseEntity.ok(studentService.getOne(id));
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Пользователь заблудился по дороге :(");
-//        }
-//    }
-
-//    @GetMapping("/current-course/{id}")
-//    public ResponseEntity getCurrentCourses(@PathVariable long id){
-//        try{
-//            return ResponseEntity.ok(studentService.getCurrentCourses(id));
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Ошибка!");
-//        }
-//    }
-
-//    @GetMapping("/available-course/{id}")
-//    public ResponseEntity getAvailableCourses(@PathVariable long id){
-//        try{
-//            return ResponseEntity.ok(studentService.getAvailableCourses(id));
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Ошибка!");
-//        }
-//    }
-
-//    @GetMapping("/completed-course/{id}")
-//    public ResponseEntity getCompletedCourses(@PathVariable long id){
-//        try{
-//            return ResponseEntity.ok(studentService.getCompletedCourses(id));
-//        } catch (Exception e){
-//            return ResponseEntity.badRequest().body("Ошибка!");
-//        }
-//    }

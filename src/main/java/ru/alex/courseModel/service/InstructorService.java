@@ -31,7 +31,7 @@ public class InstructorService {
         return (List<Instructor>)instructorRepo.findAll();
     }
 
-    public Instructor addCourse(long courseId, long instructorId){
+    public Instructor addCourse(int courseId, long instructorId){
         Instructor instructor = instructorRepo.findById(instructorId).get();
         Course course = courseRepo.findById(courseId).get();
         instructor.addCourse(course);
@@ -39,7 +39,7 @@ public class InstructorService {
         return saveInstructor(instructor);
     }
 
-    public Instructor removeCourse(long courseId, long instructorId){
+    public Instructor removeCourse(int courseId, long instructorId){
         Instructor instructor = instructorRepo.findById(instructorId).get();
         Course course = courseRepo.findById(courseId).get();
         instructor.removeCourse(course);
@@ -55,16 +55,16 @@ public class InstructorService {
 //        return instructors;
 //    }
 
-//    public InstructorDto getOne(long id){
-//        return InstructorDto.toDto(instructorRepo.findById(id).get());
-//    }
+    public Instructor getInstructorById (long id){
+        return instructorRepo.findById(id).get();
+    }
 
-//    public InstructorDto update(long id, Instructor instructor){
-//        instructor.setId(id);
-//        return saveInstructor(instructor);
-//    }
+    public Instructor updateInstructor (long id, Instructor instructor){
+        instructor.setId(id);
+        return saveInstructor(instructor);
+    }
 
-    public long delete(long id){
+    public long deleteInstructor (long id){
         if(instructorRepo.existsById(id)) {
             instructorRepo.deleteById(id);
         }

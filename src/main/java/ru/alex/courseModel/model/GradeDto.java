@@ -3,7 +3,6 @@ package ru.alex.courseModel.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.alex.courseModel.entity.Grade;
-import ru.alex.courseModel.entity.StudentCourse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,10 @@ public class GradeDto {
         this.value = grade.getValue();
     }
 
-    public List<GradeDto> getGradeDtoList (List<Grade> grades){
+    public static List<GradeDto> getGradeDtoList (List<Grade> grades){
+        if (grades == null) {
+            return new ArrayList<>();
+        }
         List<GradeDto> gradeDtoList = new ArrayList<>();
         for (Grade grade : grades){
             gradeDtoList.add(new GradeDto(grade));

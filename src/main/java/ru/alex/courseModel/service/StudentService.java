@@ -16,9 +16,6 @@ public class StudentService {
     private StudentRepo studentRepo;
 
     @Autowired
-    private CourseRepo courseRepo;
-
-    @Autowired
     private StudentCourseService studentCourseService;
 
     public Student saveStudent(Student student) {
@@ -46,6 +43,10 @@ public class StudentService {
         return studentCourseService.getStudentCourse(id);
     }
 
+    public List<Course> getAllStudentCourses(long studentId){
+        return studentCourseService.getAllStudentCourses(studentId);
+    }
+
     public List<Course> getCurrentCourses(long studentId){
         return studentCourseService.getCurrentCourses(studentId);
     }
@@ -54,42 +55,40 @@ public class StudentService {
         return studentCourseService.getFinishedCourses(studentId);
     }
 
-    public void addStudentCourse(Student student, Course course){
-        studentCourseService.addStudentCourse(student, course);
+    public void addStudentCourse(long studentId, int courseId){
+        studentCourseService.addStudentCourse(studentId, courseId);
     }
 
-    public void deleteStudentCourse(Student student, Course course){
-        studentCourseService.removeStudentCourse(student, course);
+    public void deleteStudentCourse(long studentId, int courseId){
+        studentCourseService.removeStudentCourse(studentId, courseId);
     }
+
+    public List<Course> getAvailableCourses(long studentId){
+        return studentCourseService.getAvailableCourse(studentId);
+    }
+
+
+
+
+    /*-------------------------------------------------------*/
 
     public void addGrade(StudentCourseId id, int value){
         studentCourseService.addGrade(id, value);
     }
 
 
-
-
-
-
     public void addStudentCourseGrade(StudentCourse studentCourse, Grade grade){
         studentCourse.getGrades().add(grade);
     }
 
-    public void updateStudentCourseGrade(StudentCourse studentCourse, int id, Grade grade){
-        studentCourse.getGrades().set(id, grade);
+    public Grade updateStudentCourseGrade(long id, int value){
+        return studentCourseService.updateGradeById(id, value);
     }
 
-    public void deleteStudentCourseGrade(StudentCourse studentCourse, int id){
-        studentCourse.getGrades().remove(id);
+    public void deleteGrade(long id){
+        studentCourseService.deleteGradeById(id);
     }
 
 
-
-
-
-//    public List<Course> getAvailableCourses(long studentId){
-//        return getStudentCourses(studentId);
-//    }
-//
 
 }

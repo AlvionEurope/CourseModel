@@ -10,10 +10,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 public class StudentCourseId implements Serializable {
-    private Long studentId;
-    private Long courseId;
+    private long studentId;
+    private int courseId;
 
-    public StudentCourseId(Long studentId, Long courseId) {
+    public StudentCourseId(long studentId, int courseId) {
         super();
         this.studentId = studentId;
         this.courseId = courseId;

@@ -30,33 +30,40 @@ public class CourseService {
         return (List<Course>)courseRepo.findAll();
     }
 
-    public Course getCourseById (long id){
+    public Course getCourseById (int id){
         return courseRepo.findById(id).get();
     }
 
-    public Course updateCourse (long id, Course course){
+    public Course updateCourse (int id, Course course){
         course.setId(id);
         return saveCourse(course);
     }
 
-    public void deleteCourse (long id){
+    public void deleteCourse (int id){
         courseRepo.deleteById(id);
     }
 
-    public void addStudent (Student student, Course course){
-        studentCourseService.addStudentCourse(student, course);
+    public void addStudentCourse(long studentId, int courseId){
+        studentCourseService.addStudentCourse(studentId, courseId);
     }
 
-    public void deleteStudent(Student student, Course course){
-        studentCourseService.removeStudentCourse(student, course);
+    public void deleteStudentCourse(long studentId, int courseId){
+        studentCourseService.removeStudentCourse(studentId, courseId);
     }
 
-    public void addInstructorToCourse (Course course, Instructor instructor){
-        instructorService.addCourse(course.getId(), instructor.getId());
+    public List<Student> getCourseStudents(int courseId) {
+        return studentCourseService.getAllCourseStudents(courseId);
     }
 
-    public void deleteInstructor(Course course, Instructor instructor){
-        instructorService.removeCourse(course.getId(), instructor.getId());
+
+
+
+    public void addInstructorToCourse (int courseId, long instructorId){
+        instructorService.addCourse(courseId, instructorId);
+    }
+
+    public void deleteInstructorFromCourse (int courseId, long instructorId){
+        instructorService.removeCourse(courseId, instructorId);
     }
 
 
