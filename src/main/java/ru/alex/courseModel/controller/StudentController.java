@@ -45,15 +45,15 @@ public class StudentController {
     }
 
     @GetMapping("/add-course")
-    public void addCourse(@RequestParam ("studentId") long studentId,
-                          @RequestParam ("courseId") int courseId){
-        studentService.addStudentCourse(studentId, courseId);
+    public void addCourse(@RequestParam ("courseId") int courseId,
+                          @RequestParam ("studentId") long studentId){
+        studentService.addStudentCourse(courseId, studentId);
     }
 
     @GetMapping("/delete-course")
-    public void deleteCourse(@RequestParam ("studentId") long studentId,
-                          @RequestParam ("courseId") int courseId){
-        studentService.deleteStudentCourse(studentId, courseId);
+    public void deleteCourse(@RequestParam ("courseId") int courseId,
+                             @RequestParam ("studentId") long studentId){
+        studentService.deleteStudentCourse(courseId, studentId);
     }
 
     @GetMapping("/available-courses")

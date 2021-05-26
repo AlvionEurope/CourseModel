@@ -4,7 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -22,7 +24,7 @@ public class Course {
     @JoinTable(name = "auto_instructor_course",
             joinColumns = {@JoinColumn(name = "course_id")},
             inverseJoinColumns = {@JoinColumn(name = "instructor_id")})
-    private List<Instructor> instructors = new ArrayList<>();
+    private Set<Instructor> instructors = new HashSet<>();
 
     @OneToMany(mappedBy = "course")
     private List<StudentCourse> studentCourses = new ArrayList<>();

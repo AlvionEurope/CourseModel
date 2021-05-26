@@ -55,12 +55,12 @@ public class StudentService {
         return studentCourseService.getFinishedCourses(studentId);
     }
 
-    public void addStudentCourse(long studentId, int courseId){
-        studentCourseService.addStudentCourse(studentId, courseId);
+    public void addStudentCourse(int courseId, long studentId){
+        studentCourseService.addStudentCourse(courseId, studentId);
     }
 
-    public void deleteStudentCourse(long studentId, int courseId){
-        studentCourseService.removeStudentCourse(studentId, courseId);
+    public void deleteStudentCourse(int courseId, long studentId){
+        studentCourseService.removeStudentCourse(courseId, studentId);
     }
 
     public List<Course> getAvailableCourses(long studentId){

@@ -7,6 +7,7 @@ import ru.alex.courseModel.entity.Instructor;
 import ru.alex.courseModel.entity.Student;
 import ru.alex.courseModel.reposttory.CourseRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -43,20 +44,17 @@ public class CourseService {
         courseRepo.deleteById(id);
     }
 
-    public void addStudentCourse(long studentId, int courseId){
-        studentCourseService.addStudentCourse(studentId, courseId);
+    public void addStudentCourse(int courseId, long studentId){
+        studentCourseService.addStudentCourse(courseId, studentId);
     }
 
-    public void deleteStudentCourse(long studentId, int courseId){
-        studentCourseService.removeStudentCourse(studentId, courseId);
+    public void deleteStudentCourse(int courseId, long studentId){
+        studentCourseService.removeStudentCourse(courseId, studentId);
     }
 
     public List<Student> getCourseStudents(int courseId) {
         return studentCourseService.getAllCourseStudents(courseId);
     }
-
-
-
 
     public void addInstructorToCourse (int courseId, long instructorId){
         instructorService.addCourse(courseId, instructorId);
@@ -66,5 +64,7 @@ public class CourseService {
         instructorService.removeCourse(courseId, instructorId);
     }
 
-
+    public List<Instructor> getCourseInstructors(int courseId) {
+        return new ArrayList<>(courseRepo.findById(courseId).get().getInstructors());
+    }
 }

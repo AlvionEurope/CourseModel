@@ -64,14 +64,14 @@ public class StudentCourseService {
         return getCourses(studentId, true);
     }
 
-    public void addStudentCourse(long studentId, int courseId){
+    public void addStudentCourse(int courseId, long studentId){
         Student student = studentRepo.findById(studentId).get();
         Course course = courseRepo.findById(courseId).get();
         new StudentCourse(student, course);
         studentRepo.save(student);
     }
 
-    public void removeStudentCourse(long studentId, int courseId){
+    public void removeStudentCourse(int courseId, long studentId){
         Student student = studentRepo.findById(studentId).get();
         Course course = courseRepo.findById(courseId).get();
         StudentCourseId id = new StudentCourseId(studentId, courseId);
@@ -139,4 +139,6 @@ public class StudentCourseService {
         return 1f * studentCourse.getGrades().stream().mapToInt(Grade::getValue).sum()
                 / studentCourse.getGrades().size();
     }
+
+
 }
