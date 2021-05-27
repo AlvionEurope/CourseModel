@@ -16,10 +16,6 @@ public class Grade {
 
     private int value;
 
-    public Grade(int value) {
-        this.value = value;
-    }
-
     @ManyToOne(fetch = FetchType.EAGER)
-    private ActiveCourse activeCourse;
+    private StudentProgressOnCourse studentProgressOnCourse;
 }

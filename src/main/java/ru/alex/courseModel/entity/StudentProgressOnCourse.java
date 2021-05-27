@@ -10,10 +10,10 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class ActiveCourse {
+public class StudentProgressOnCourse {
 
     @EmbeddedId
-    private ActiveCourseId id;
+    private StudentProgressOnCourseId id;
 
     @ManyToOne
     @MapsId("courseId")
@@ -27,32 +27,32 @@ public class ActiveCourse {
     private int finalGrade;
 
 
-    public ActiveCourse(Student student, Course course) {
+    public StudentProgressOnCourse(Student student, Course course) {
 
-        this.id = new ActiveCourseId(student.getId(), course.getId());
+        this.id = new StudentProgressOnCourseId(student.getId(), course.getId());
         this.student = student;
         this.course = course;
         this.isFinished = false;
         this.finalGrade = 0;
 
-        student.getActiveCourses().add(this);
-        course.getActiveCourses().add(this);
+        student.getStudentProgressOnCourses().add(this);
+        course.getStudentProgressOnCourses().add(this);
     }
 
     public void removeCourse(Student student, Course course) {
-        student.getActiveCourses().remove(this);
-        course.getActiveCourses().remove(this);
+        student.getStudentProgressOnCourses().remove(this);
+        course.getStudentProgressOnCourses().remove(this);
     }
 
-    @OneToMany(mappedBy = "activeCourse", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "studentProgressOnCourse", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Grade> grades = new ArrayList<>();
     public void addGrade(Grade grade) {
         this.grades.add(grade);
-        grade.setActiveCourse(this);
+        grade.setStudentProgressOnCourse(this);
     }
 
-    public float getAverageGrade(){
-        if (isFinished()){
+    public float getAverageGrade() {
+        if (isFinished()) {
             return this.finalGrade;
         }
         return 1f * this.getGrades().stream().mapToInt(Grade::getValue).sum() / this.getGrades().size();

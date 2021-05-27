@@ -26,25 +26,16 @@ public class Course {
             inverseJoinColumns = {@JoinColumn(name = "professor_id")})
     private Set<Professor> professors = new HashSet<>();
 
-    @OneToMany(mappedBy = "course")
-    private List<ActiveCourse> activeCourses = new ArrayList<>();
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<StudentProgressOnCourse> studentProgressOnCourses = new ArrayList<>();
 
-    public void addProfessor(Professor professor){
+    public void addProfessor(Professor professor) {
         this.professors.add(professor);
         professor.getCourses().add(this);
     }
 
-    public void removeProfessor(Professor professor){
+    public void removeProfessor(Professor professor) {
         this.professors.remove(professor);
         professor.getCourses().remove(this);
-    }
-
-    public boolean isPresent (long studentId){
-        for (ActiveCourse activeCourse : activeCourses){
-            if (activeCourse.getStudent().getId() == studentId){
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -1,6 +1,5 @@
 package ru.alex.courseModel.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.Professor;
 import ru.alex.courseModel.model.ProfessorDto;
@@ -12,11 +11,14 @@ import java.util.List;
 @RequestMapping("/professor")
 public class ProfessorController {
 
-    @Autowired
-    private ProfessorService professorService;
+    private final ProfessorService professorService;
+
+    public ProfessorController(ProfessorService professorService) {
+        this.professorService = professorService;
+    }
 
     @GetMapping("/all")
-    public List<ProfessorDto> getProfessor(){
+    public List<ProfessorDto> getProfessor() {
         return ProfessorDto.getProfessorDtoList(professorService.getAll());
     }
 
@@ -31,13 +33,13 @@ public class ProfessorController {
     }
 
     @DeleteMapping("/del-{id}")
-    public long deleteProfessor(@PathVariable long id){
+    public long deleteProfessor(@PathVariable long id) {
         professorService.deleteProfessor(id);
         return id;
     }
 
     @PutMapping("/update-{id}")
-    public ProfessorDto updateProfessor(@PathVariable long id, @RequestBody Professor professor){
+    public ProfessorDto updateProfessor(@PathVariable long id, @RequestBody Professor professor) {
         return new ProfessorDto(professorService.updateProfessor(id, professor));
     }
 }

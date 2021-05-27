@@ -1,6 +1,5 @@
 package ru.alex.courseModel.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.Course;
 import ru.alex.courseModel.model.CourseDto;
@@ -13,8 +12,11 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 
-    @Autowired
-    private CourseService courseService;
+    private final CourseService courseService;
+
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @GetMapping("/all")
     public List<CourseDto> getCourses() {
@@ -32,31 +34,31 @@ public class CourseController {
     }
 
     @DeleteMapping("/del-{id}")
-    public int deleteCourse(@PathVariable int id){
+    public int deleteCourse(@PathVariable int id) {
         courseService.deleteCourse(id);
         return id;
     }
 
     @PutMapping("/update-{id}")
-    public CourseDto updateCourse(@PathVariable int id, @RequestBody Course course){
+    public CourseDto updateCourse(@PathVariable int id, @RequestBody Course course) {
         return new CourseDto(courseService.updateCourse(id, course));
     }
 
 
     @GetMapping("/add-professor")
     public void addProfessor(@RequestParam ("courseId") int courseId,
-                             @RequestParam ("professorId") long professorId){
+                             @RequestParam ("professorId") long professorId) {
         courseService.addProfessorToCourse(courseId, professorId);
     }
 
     @DeleteMapping("/delete-professor")
     public void deleteProfessor(@RequestParam ("courseId") int courseId,
-                                @RequestParam ("professorId") long professorId){
+                                @RequestParam ("professorId") long professorId) {
         courseService.deleteProfessorFromCourse(courseId, professorId);
     }
 
     @GetMapping("/all-course-professors")
-    public List<ProfessorDto> getCourseProfessors(@RequestParam ("courseId") int courseId){
+    public List<ProfessorDto> getCourseProfessors(@RequestParam ("courseId") int courseId) {
         return ProfessorDto.getProfessorDtoList(courseService.getCourseProfessors(courseId));
     }
 }

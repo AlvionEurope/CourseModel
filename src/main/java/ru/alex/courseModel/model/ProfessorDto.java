@@ -25,12 +25,12 @@ public class ProfessorDto {
         this.payment = professor.getPayment();
     }
 
-    public static List<ProfessorDto> getProfessorDtoList(List<Professor> professors){
-        if (professors == null){
+    public static List<ProfessorDto> getProfessorDtoList(List<Professor> professors) {
+        if (professors == null) {
             return new ArrayList<>();
         }
         List<ProfessorDto> professorDtoList = new ArrayList<>();
-        for(Professor professor : professors){
+        for(Professor professor : professors) {
             professorDtoList.add(new ProfessorDto(professor));
         }
         return professorDtoList;

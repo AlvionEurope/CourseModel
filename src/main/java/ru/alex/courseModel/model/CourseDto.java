@@ -20,9 +20,9 @@ public class CourseDto {
         this.cost = course.getCost();
     }
 
-    public static List<CourseDto> getCourseDtoList(List<Course> courses){
+    public static List<CourseDto> getCourseDtoList(List<Course> courses) {
         List<CourseDto> courseDtoList = new ArrayList<>();
-        for(Course course : courses){
+        for(Course course : courses) {
             courseDtoList.add(new CourseDto(course));
         }
         return courseDtoList;

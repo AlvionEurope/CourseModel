@@ -1,6 +1,5 @@
 package ru.alex.courseModel.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.*;
 import ru.alex.courseModel.model.StudentDto;
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @GetMapping("/all")
     public List<StudentDto> getStudents() {
@@ -31,14 +33,14 @@ public class StudentController {
     }
 
     @DeleteMapping("/del-{id}")
-    public long deleteStudent(@PathVariable long id){
+    public long deleteStudent(@PathVariable long id) {
         studentService.deleteStudent(id);
         return id;
     }
 
     @PutMapping("/update-{id}")
     public StudentDto updateStudent(@PathVariable long id,
-                                    @RequestBody Student student){
+                                    @RequestBody Student student) {
         return new StudentDto(studentService.updateStudent(id, student));
     }
 }

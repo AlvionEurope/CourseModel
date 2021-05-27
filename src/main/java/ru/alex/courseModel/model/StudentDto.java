@@ -29,7 +29,7 @@ public class StudentDto {
         this.academicPerformance = student.getAcademicPerformance();
     }
 
-    public static List<StudentDto> getStudentDtoList(List<Student> students){
+    public static List<StudentDto> getStudentDtoList(List<Student> students) {
         List<StudentDto> studentDtoList = new ArrayList<>();
         if (students != null) {
             for (Student student : students) {
