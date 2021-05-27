@@ -21,22 +21,22 @@ public class Course {
     private float cost;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "auto_instructor_course",
+    @JoinTable(name = "auto_professor_course",
             joinColumns = {@JoinColumn(name = "course_id")},
-            inverseJoinColumns = {@JoinColumn(name = "instructor_id")})
-    private Set<Instructor> instructors = new HashSet<>();
+            inverseJoinColumns = {@JoinColumn(name = "professor_id")})
+    private Set<Professor> professors = new HashSet<>();
 
     @OneToMany(mappedBy = "course")
     private List<ActiveCourse> activeCourses = new ArrayList<>();
 
-    public void addInstructor(Instructor instructor){
-        this.instructors.add(instructor);
-        instructor.getCourses().add(this);
+    public void addProfessor(Professor professor){
+        this.professors.add(professor);
+        professor.getCourses().add(this);
     }
 
-    public void removeInstructor (Instructor instructor){
-        this.instructors.remove(instructor);
-        instructor.getCourses().remove(this);
+    public void removeProfessor(Professor professor){
+        this.professors.remove(professor);
+        professor.getCourses().remove(this);
     }
 
     public boolean isPresent (long studentId){

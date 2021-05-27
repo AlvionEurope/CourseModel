@@ -3,9 +3,9 @@ package ru.alex.courseModel.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.courseModel.entity.Course;
-import ru.alex.courseModel.entity.Instructor;
+import ru.alex.courseModel.entity.Professor;
 import ru.alex.courseModel.entity.Student;
-import ru.alex.courseModel.reposttory.CourseRepo;
+import ru.alex.courseModel.reposttory.CourseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,24 +14,24 @@ import java.util.List;
 public class CourseService {
 
     @Autowired
-    private CourseRepo courseRepo;
+    private CourseRepository courseRepository;
 
     @Autowired
     private ActiveCourseService activeCourseService;
 
     @Autowired
-    private InstructorService instructorService;
+    private ProfessorService professorService;
 
     public Course saveCourse(Course course) {
-        return courseRepo.save(course);
+        return courseRepository.save(course);
     }
 
     public List<Course> getAll(){
-        return (List<Course>)courseRepo.findAll();
+        return (List<Course>) courseRepository.findAll();
     }
 
     public Course getCourseById (int id){
-        return courseRepo.getOne(id);
+        return courseRepository.getOne(id);
     }
 
     public Course updateCourse (int id, Course course){
@@ -40,7 +40,7 @@ public class CourseService {
     }
 
     public void deleteCourse (int id){
-        courseRepo.deleteById(id);
+        courseRepository.deleteById(id);
     }
 
     public void addStudentCourse(int courseId, long studentId){
@@ -55,15 +55,15 @@ public class CourseService {
         return activeCourseService.getAllCourseStudents(courseId);
     }
 
-    public void addInstructorToCourse (int courseId, long instructorId){
-        instructorService.addCourse(courseId, instructorId);
+    public void addProfessorToCourse(int courseId, long instructorId){
+        professorService.addCourse(courseId, instructorId);
     }
 
-    public void deleteInstructorFromCourse (int courseId, long instructorId){
-        instructorService.removeCourse(courseId, instructorId);
+    public void deleteProfessorFromCourse(int courseId, long instructorId){
+        professorService.removeCourse(courseId, instructorId);
     }
 
-    public List<Instructor> getCourseInstructors(int courseId) {
-        return new ArrayList<>(courseRepo.getOne(courseId).getInstructors());
+    public List<Professor> getCourseProfessors(int courseId) {
+        return new ArrayList<>(courseRepository.getOne(courseId).getProfessors());
     }
 }

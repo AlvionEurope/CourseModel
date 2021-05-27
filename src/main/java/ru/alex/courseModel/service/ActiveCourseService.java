@@ -4,10 +4,10 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.courseModel.entity.*;
-import ru.alex.courseModel.reposttory.CourseRepo;
-import ru.alex.courseModel.reposttory.GradeRepo;
-import ru.alex.courseModel.reposttory.ActiveCourseRepo;
-import ru.alex.courseModel.reposttory.StudentRepo;
+import ru.alex.courseModel.reposttory.CourseRepository;
+import ru.alex.courseModel.reposttory.GradeRepository;
+import ru.alex.courseModel.reposttory.ActiveCourseRepository;
+import ru.alex.courseModel.reposttory.StudentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +17,17 @@ import java.util.List;
 public class ActiveCourseService {
 
     @Autowired
-    private ActiveCourseRepo activeCourseRepo;
+    private ActiveCourseRepository activeCourseRepository;
     @Autowired
-    private CourseRepo courseRepo;
+    private CourseRepository courseRepository;
     @Autowired
-    private StudentRepo studentRepo;
+    private StudentRepository studentRepository;
     @Autowired
-    private GradeRepo gradeRepo;
+    private GradeRepository gradeRepository;
 
     private List<Course> getCourses(long studentId, boolean finished){
         List<Course> currentCourses = new ArrayList<>();
-        for (ActiveCourse activeCourse : activeCourseRepo.findAll()){
+        for (ActiveCourse activeCourse : activeCourseRepository.findAll()){
             if(activeCourse.getStudent().getId() == studentId && activeCourse.isFinished() == finished){
                 currentCourses.add(activeCourse.getCourse());
             }
@@ -37,7 +37,7 @@ public class ActiveCourseService {
 
     public List<Course> getAvailableCourse (long studentId){
         List<Course> courses = new ArrayList<>();
-        for (Course course : courseRepo.findAll()){
+        for (Course course : courseRepository.findAll()){
             if (!course.isPresent(studentId)){
                 courses.add(course);
             }
@@ -52,8 +52,8 @@ public class ActiveCourseService {
         return studentCourses;
     }
 
-    public ActiveCourse getStudentCourse(StudentCourseId id){
-        return activeCourseRepo.getOne(id);
+    public ActiveCourse getStudentCourse(ActiveCourseId id){
+        return activeCourseRepository.getOne(id);
     }
 
     public List<Course> getCurrentCourses(long studentId) {
@@ -65,23 +65,23 @@ public class ActiveCourseService {
     }
 
     public void addStudentCourse(int courseId, long studentId){
-        Student student = studentRepo.getOne(studentId);
-        Course course = courseRepo.getOne(courseId);
+        Student student = studentRepository.getOne(studentId);
+        Course course = courseRepository.getOne(courseId);
         new ActiveCourse(student, course);
-        studentRepo.save(student);
+        studentRepository.save(student);
     }
 
     public void removeStudentCourse(int courseId, long studentId){
-        Student student = studentRepo.getOne(studentId);
-        Course course = courseRepo.getOne(courseId);
-        StudentCourseId id = new StudentCourseId(studentId, courseId);
-        activeCourseRepo.getOne(id).removeCourse(student, course);
-        activeCourseRepo.deleteById(id);
+        Student student = studentRepository.getOne(studentId);
+        Course course = courseRepository.getOne(courseId);
+        ActiveCourseId id = new ActiveCourseId(studentId, courseId);
+        activeCourseRepository.getOne(id).removeCourse(student, course);
+        activeCourseRepository.deleteById(id);
     }
 
     public List<Student> getAllCourseStudents (int courseId){
         List<Student> courseStudents = new ArrayList<>();
-        for (ActiveCourse activeCourse : activeCourseRepo.findAll()){
+        for (ActiveCourse activeCourse : activeCourseRepository.findAll()){
             if (activeCourse.getCourse().getId() == courseId){
                 courseStudents.add(activeCourse.getStudent());
             }
@@ -89,19 +89,19 @@ public class ActiveCourseService {
         return courseStudents;
     }
 
-    public void addGrade(StudentCourseId id, Grade grade){
-        ActiveCourse activeCourse = activeCourseRepo.getOne(id);
+    public void addGrade(ActiveCourseId id, Grade grade){
+        ActiveCourse activeCourse = activeCourseRepository.getOne(id);
         activeCourse.addGrade(grade);
-        activeCourseRepo.save(activeCourse);
+        activeCourseRepository.save(activeCourse);
     }
 
     public Grade updateGradeById(long id, Grade grade){
         grade.setId(id);
-        return gradeRepo.save(grade);
+        return gradeRepository.save(grade);
     }
 
     public void deleteGradeById(long id){
-        gradeRepo.deleteById(id);
+        gradeRepository.deleteById(id);
     }
 
     public ActiveCourse setFinalStudentCourse (ActiveCourse activeCourse, int finalGrade){

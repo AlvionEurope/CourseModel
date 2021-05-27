@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.Course;
 import ru.alex.courseModel.model.CourseDto;
-import ru.alex.courseModel.model.InstructorDto;
+import ru.alex.courseModel.model.ProfessorDto;
 import ru.alex.courseModel.service.CourseService;
 
 import java.util.List;
@@ -43,20 +43,20 @@ public class CourseController {
     }
 
 
-    @GetMapping("/add-instructor")
-    public void addInstructor(@RequestParam ("courseId") int courseId,
-                              @RequestParam ("instructorId") long instructorId){
-        courseService.addInstructorToCourse(courseId, instructorId);
+    @GetMapping("/add-professor")
+    public void addProfessor(@RequestParam ("courseId") int courseId,
+                             @RequestParam ("professorId") long professorId){
+        courseService.addProfessorToCourse(courseId, professorId);
     }
 
-    @DeleteMapping("/delete-instructor")
-    public void deleteInstructor(@RequestParam ("courseId") int courseId,
-                                 @RequestParam ("instructorId") long instructorId){
-        courseService.deleteInstructorFromCourse(courseId, instructorId);
+    @DeleteMapping("/delete-professor")
+    public void deleteProfessor(@RequestParam ("courseId") int courseId,
+                                @RequestParam ("professorId") long professorId){
+        courseService.deleteProfessorFromCourse(courseId, professorId);
     }
 
-    @GetMapping("/all-course-instructors")
-    public List<InstructorDto> getCourseInstructors(@RequestParam ("courseId") int courseId){
-        return InstructorDto.getInstructorDtoList(courseService.getCourseInstructors(courseId));
+    @GetMapping("/all-course-professors")
+    public List<ProfessorDto> getCourseProfessors(@RequestParam ("courseId") int courseId){
+        return ProfessorDto.getProfessorDtoList(courseService.getCourseProfessors(courseId));
     }
 }

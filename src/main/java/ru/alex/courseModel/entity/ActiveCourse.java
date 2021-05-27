@@ -13,7 +13,7 @@ import java.util.List;
 public class ActiveCourse {
 
     @EmbeddedId
-    private StudentCourseId id;
+    private ActiveCourseId id;
 
     @ManyToOne
     @MapsId("courseId")
@@ -29,7 +29,7 @@ public class ActiveCourse {
 
     public ActiveCourse(Student student, Course course) {
 
-        this.id = new StudentCourseId(student.getId(), course.getId());
+        this.id = new ActiveCourseId(student.getId(), course.getId());
         this.student = student;
         this.course = course;
         this.isFinished = false;

@@ -3,7 +3,7 @@ package ru.alex.courseModel.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.alex.courseModel.entity.*;
-import ru.alex.courseModel.reposttory.StudentRepo;
+import ru.alex.courseModel.reposttory.StudentRepository;
 
 import java.util.List;
 
@@ -11,18 +11,18 @@ import java.util.List;
 public class StudentService {
 
     @Autowired
-    private StudentRepo studentRepo;
+    private StudentRepository studentRepository;
 
     public Student saveStudent(Student student) {
-        return studentRepo.save(student);
+        return studentRepository.save(student);
     }
 
     public List<Student> getAllStudents(){
-        return (List<Student>)studentRepo.findAll();
+        return (List<Student>) studentRepository.findAll();
     }
 
     public Student getStudentById(long id){
-        return studentRepo.getOne(id);
+        return studentRepository.getOne(id);
     }
 
     public Student updateStudent(long id, Student student){
@@ -31,6 +31,6 @@ public class StudentService {
     }
 
     public void deleteStudent (long id){
-        studentRepo.deleteById(id);
+        studentRepository.deleteById(id);
     }
 }

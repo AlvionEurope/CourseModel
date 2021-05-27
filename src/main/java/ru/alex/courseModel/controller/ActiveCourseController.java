@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.Grade;
 import ru.alex.courseModel.entity.ActiveCourse;
-import ru.alex.courseModel.entity.StudentCourseId;
+import ru.alex.courseModel.entity.ActiveCourseId;
 import ru.alex.courseModel.model.CourseDto;
 import ru.alex.courseModel.model.GradeDto;
-import ru.alex.courseModel.model.ActuveCourseDto;
+import ru.alex.courseModel.model.ActiveCourseDto;
 import ru.alex.courseModel.model.StudentDto;
 import ru.alex.courseModel.service.ActiveCourseService;
 
@@ -60,7 +60,7 @@ public class ActiveCourseController {
     @GetMapping("/grades")
     public List<GradeDto> getGradesOfStudentCourse(@RequestParam ("studentId") long studentId,
                                                    @RequestParam ("courseId") int courseId){
-        StudentCourseId id = new StudentCourseId(studentId, courseId);
+        ActiveCourseId id = new ActiveCourseId(studentId, courseId);
         return GradeDto.getGradeDtoList(activeCourseService.getStudentCourse(id).getGrades());
     }
 
@@ -68,7 +68,7 @@ public class ActiveCourseController {
     public List<GradeDto> addGrade(@RequestParam ("studentId") long studentId,
                                    @RequestParam ("courseId") int courseId,
                                    @RequestBody Grade grade){
-        StudentCourseId id = new StudentCourseId(studentId, courseId);
+        ActiveCourseId id = new ActiveCourseId(studentId, courseId);
         activeCourseService.addGrade(id, grade);
         return GradeDto.getGradeDtoList(activeCourseService.getStudentCourse(id).getGrades());
     }
@@ -86,8 +86,8 @@ public class ActiveCourseController {
     }
 
     @PutMapping("/finalize-active-course")
-    public ActuveCourseDto finalizeActiveCourse(@RequestParam ("finalGrade") int finalGrade,
+    public ActiveCourseDto finalizeActiveCourse(@RequestParam ("finalGrade") int finalGrade,
                                                 @RequestBody ActiveCourse activeCourse){
-        return new ActuveCourseDto(activeCourseService.setFinalStudentCourse(activeCourse, finalGrade));
+        return new ActiveCourseDto(activeCourseService.setFinalStudentCourse(activeCourse, finalGrade));
     }
 }

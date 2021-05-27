@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class ActuveCourseDto {
-    private StudentCourseId id;
+public class ActiveCourseDto {
+    private ActiveCourseId id;
     private boolean isFinished;
     private int finalGrade;
     private String studentName;
     private String courseName;
     private List<GradeDto> grades = new ArrayList<>();
 
-    public ActuveCourseDto(ActiveCourse activeCourse) {
+    public ActiveCourseDto(ActiveCourse activeCourse) {
         this.id = activeCourse.getId();
         this.studentName = activeCourse.getStudent().getName();
         this.courseName = activeCourse.getCourse().getName();

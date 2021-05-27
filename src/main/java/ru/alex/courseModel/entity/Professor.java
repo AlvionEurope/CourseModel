@@ -8,8 +8,8 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "instructor")
-public class Instructor {
+@Table(name = "professor")
+public class Professor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +20,16 @@ public class Instructor {
     private String phone;
     private Float payment;
 
-    @ManyToMany(mappedBy = "instructors")
+    @ManyToMany(mappedBy = "professors")
     private List<Course> courses = new ArrayList<>();
 
     public void addCourse(Course course){
         this.courses.add(course);
-        course.getInstructors().add(this);
+        course.getProfessors().add(this);
     }
 
     public void removeCourse(Course course){
         this.courses.remove(course);
-        course.getInstructors().remove(this);
+        course.getProfessors().remove(this);
     }
 }
