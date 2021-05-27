@@ -39,13 +39,14 @@ public class StudentProgressOnCourse {
         course.getStudentProgressOnCourses().add(this);
     }
 
-    public void removeCourse(Student student, Course course) {
-        student.getStudentProgressOnCourses().remove(this);
-        course.getStudentProgressOnCourses().remove(this);
-    }
+//    public void removeCourse(Student student, Course course) {
+//        student.getStudentProgressOnCourses().remove(this);
+//        course.getStudentProgressOnCourses().remove(this);
+//    }
 
     @OneToMany(mappedBy = "studentProgressOnCourse", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Grade> grades = new ArrayList<>();
+
     public void addGrade(Grade grade) {
         this.grades.add(grade);
         grade.setStudentProgressOnCourse(this);

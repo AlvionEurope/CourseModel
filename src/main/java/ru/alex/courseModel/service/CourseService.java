@@ -52,4 +52,15 @@ public class CourseService {
     public List<Professor> getCourseProfessors(int courseId) {
         return new ArrayList<>(courseRepository.getOne(courseId).getProfessors());
     }
+
+    public List<Course> getStudentCourses(long studentId) {
+        return courseRepository.findAllByStudentProgressOnCourses_Student_Id(studentId);
+    }
+
+    public List<Course> getAvailableStudentCourses(long studentId) {
+        // Не придумал, как одним запросом сделать
+        List<Course> availableCourses = new ArrayList<>(courseRepository.findAll());
+        availableCourses.removeAll(courseRepository.findAllByStudentProgressOnCourses_Student_Id(studentId));
+        return availableCourses;
+    }
 }

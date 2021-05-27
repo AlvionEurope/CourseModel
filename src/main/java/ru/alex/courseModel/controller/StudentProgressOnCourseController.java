@@ -2,7 +2,6 @@ package ru.alex.courseModel.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.Grade;
-import ru.alex.courseModel.entity.StudentProgressOnCourse;
 import ru.alex.courseModel.entity.StudentProgressOnCourseId;
 import ru.alex.courseModel.model.CourseDto;
 import ru.alex.courseModel.model.StudentProgressOnCourseDto;
@@ -33,14 +32,11 @@ public class StudentProgressOnCourseController {
         studentProgressOnCourseService.removeStudentCourse(courseId, studentId);
     }
 
-    @GetMapping("/available-student-courses")
-    public List<CourseDto> getAvailableStudentCourses(@RequestParam ("studentId") long studentId) {
-        return CourseDto.getCourseDtoList(studentProgressOnCourseService.getAvailableCourse(studentId));
-    }
+
 
     @GetMapping("/current-student-courses")
     public List<CourseDto> getCurrentStudentCourses(@RequestParam ("studentId") long studentId) {
-        return CourseDto.getCourseDtoList(studentProgressOnCourseService.getCurrentCourses(studentId));
+        return CourseDto.getCourseDtoList(studentProgressOnCourseService.getFinishedCourses(studentId, false));
     }
 
     @GetMapping("/current-course-students")
@@ -50,7 +46,7 @@ public class StudentProgressOnCourseController {
 
     @GetMapping("/finished-student-courses")
     public List<CourseDto> getFinishedStudentCourses(@RequestParam ("studentId") long studentId) {
-        return CourseDto.getCourseDtoList(studentProgressOnCourseService.getFinishedCourses(studentId));
+        return CourseDto.getCourseDtoList(studentProgressOnCourseService.getFinishedCourses(studentId, true));
     }
 
     @GetMapping("/all-student-courses")
@@ -66,12 +62,10 @@ public class StudentProgressOnCourseController {
     }
 
     @PostMapping("/grades/add")
-    public List<Grade> addGrade(@RequestParam ("studentId") long studentId,
+    public void addGrade(@RequestParam ("studentId") long studentId,
                                    @RequestParam ("courseId") int courseId,
                                    @RequestBody Grade grade) {
-        StudentProgressOnCourseId id = new StudentProgressOnCourseId(studentId, courseId);
-        studentProgressOnCourseService.addGrade(id, grade);
-        return studentProgressOnCourseService.getStudentCourse(id).getGrades();
+        studentProgressOnCourseService.addGrade(studentId, courseId, grade);
     }
 
     @PutMapping("/grades/update")
@@ -81,14 +75,13 @@ public class StudentProgressOnCourseController {
     }
 
     @DeleteMapping("/grades/delete-{id}")
-    public long deleteGrade(@PathVariable long id) {
+    public void deleteGrade(@PathVariable long id) {
         studentProgressOnCourseService.deleteGradeById(id);
-        return id;
     }
 
     @PutMapping("/finalize-active-course")
     public StudentProgressOnCourseDto finalizeActiveCourse(@RequestParam ("finalGrade") int finalGrade,
-                                                           @RequestBody StudentProgressOnCourse studentProgressOnCourse) {
-        return new StudentProgressOnCourseDto(studentProgressOnCourseService.setFinalStudentCourse(studentProgressOnCourse, finalGrade));
+                                                           @RequestBody StudentProgressOnCourseId studentProgressOnCourseId) {
+        return new StudentProgressOnCourseDto(studentProgressOnCourseService.setFinalStudentCourse(studentProgressOnCourseId, finalGrade));
     }
 }

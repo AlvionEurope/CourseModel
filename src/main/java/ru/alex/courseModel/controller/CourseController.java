@@ -61,4 +61,21 @@ public class CourseController {
     public List<ProfessorDto> getCourseProfessors(@RequestParam ("courseId") int courseId) {
         return ProfessorDto.getProfessorDtoList(courseService.getCourseProfessors(courseId));
     }
+
+    @GetMapping("/all-course")
+    public List<CourseDto> getStudentCourses(@RequestParam ("studentId") int studentId) {
+        return CourseDto.getCourseDtoList(courseService.getStudentCourses(studentId));
+    }
+//
+//    @GetMapping("/all-course")
+//    public List<CourseDto> getStudentCourses(@RequestParam ("studentId") int studentId) {
+//        return CourseDto.getCourseDtoList(courseService.getStudentCourses(studentId));
+//    }
+
+    @GetMapping("/available-student-courses")
+    public List<CourseDto> getAvailableStudentCourses(@RequestParam ("studentId") long studentId) {
+//        return CourseDto.getCourseDtoList(studentProgressOnCourseService.getAvailableCourse(studentId));
+        return CourseDto.getCourseDtoList(courseService.getAvailableStudentCourses(studentId));
+    }
+
 }
