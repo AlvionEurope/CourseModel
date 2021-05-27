@@ -44,7 +44,6 @@ public class CourseController {
         return new CourseDto(courseService.updateCourse(id, course));
     }
 
-
     @GetMapping("/add-professor")
     public void addProfessor(@RequestParam ("courseId") int courseId,
                              @RequestParam ("professorId") long professorId) {
@@ -66,15 +65,9 @@ public class CourseController {
     public List<CourseDto> getStudentCourses(@RequestParam ("studentId") int studentId) {
         return CourseDto.getCourseDtoList(courseService.getStudentCourses(studentId));
     }
-//
-//    @GetMapping("/all-course")
-//    public List<CourseDto> getStudentCourses(@RequestParam ("studentId") int studentId) {
-//        return CourseDto.getCourseDtoList(courseService.getStudentCourses(studentId));
-//    }
 
     @GetMapping("/available-student-courses")
     public List<CourseDto> getAvailableStudentCourses(@RequestParam ("studentId") long studentId) {
-//        return CourseDto.getCourseDtoList(studentProgressOnCourseService.getAvailableCourse(studentId));
         return CourseDto.getCourseDtoList(courseService.getAvailableStudentCourses(studentId));
     }
 

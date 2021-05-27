@@ -33,9 +33,8 @@ public class ProfessorController {
     }
 
     @DeleteMapping("/del-{id}")
-    public long deleteProfessor(@PathVariable long id) {
+    public void deleteProfessor(@PathVariable long id) {
         professorService.deleteProfessor(id);
-        return id;
     }
 
     @PutMapping("/update-{id}")

@@ -8,7 +8,6 @@ import ru.alex.courseModel.reposttory.GradeRepository;
 import ru.alex.courseModel.reposttory.StudentProgressOnCourseRepository;
 import ru.alex.courseModel.reposttory.StudentRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,8 +48,6 @@ public class StudentProgressOnCourseService {
     public List<Student> getAllCourseStudents(int courseId) {
         List<StudentProgressOnCourse> courseStudents = studentProgressOnCourseRepository.findAllByCourse_Id(courseId);
         return courseStudents.stream().map(StudentProgressOnCourse::getStudent).collect(Collectors.toList());
-
-
     }
 
     public void addStudentCourse(int courseId, long studentId) {
@@ -65,9 +62,6 @@ public class StudentProgressOnCourseService {
         studentProgressOnCourseRepository.deleteById(id);
     }
 
-
-
-
     public void addGrade(long studentId, int courseId, Grade grade) {
         StudentProgressOnCourseId id = new StudentProgressOnCourseId(studentId, courseId);
         StudentProgressOnCourse studentProgressOnCourse = studentProgressOnCourseRepository.getOne(id);
@@ -75,16 +69,17 @@ public class StudentProgressOnCourseService {
         studentProgressOnCourseRepository.save(studentProgressOnCourse);
     }
 
-    public Grade updateGradeById(long id, Grade grade) {
-        grade.setId(id);
-        return gradeRepository.save(grade);
+    public Grade updateGradeById(Grade grade) {
+        Grade newGrade = gradeRepository.getOne(grade.getId());
+        newGrade.setValue(grade.getValue());
+        return gradeRepository.save(newGrade);
     }
 
     public void deleteGradeById(long id) {
         gradeRepository.deleteById(id);
     }
 
-    public StudentProgressOnCourse setFinalStudentCourse(StudentProgressOnCourseId studentProgressOnCourseId, int finalGrade) {
+    public StudentProgressOnCourse finalizeStudentCourse(StudentProgressOnCourseId studentProgressOnCourseId, int finalGrade) {
         StudentProgressOnCourse studentProgressOnCourse = studentProgressOnCourseRepository.getOne(studentProgressOnCourseId);
         if (studentProgressOnCourse.getFinalGrade() == 0 && finalGrade !=0) {
             studentProgressOnCourse.setFinalGrade(finalGrade);
@@ -94,20 +89,11 @@ public class StudentProgressOnCourseService {
         return studentProgressOnCourse;
     }
 
-    public int getFinalGrade(StudentProgressOnCourse studentProgressOnCourse) {
-        return studentProgressOnCourse.getFinalGrade();
+    public float getCurrentAverageGrade(StudentProgressOnCourseId id) {
+        return getStudentCourse(id).getAverageGrade();
     }
 
-    public float getCurrentAverageGrade(StudentProgressOnCourse studentProgressOnCourse) {
-        return studentProgressOnCourse.getAverageGrade();
-    }
-
-    public boolean isStudentPresent(long studentId) {
-        for (StudentProgressOnCourse studentProgressOnCourse : studentProgressOnCourseRepository.findAll()) {
-            if (studentProgressOnCourse.getStudent().getId() == studentId) {
-                return true;
-            }
-        }
-        return false;
+    public int getFinalGrade(StudentProgressOnCourseId id) {
+        return studentProgressOnCourseRepository.getOne(id).getFinalGrade();
     }
 }

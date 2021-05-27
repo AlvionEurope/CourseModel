@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.Grade;
 import ru.alex.courseModel.entity.StudentProgressOnCourseId;
 import ru.alex.courseModel.model.CourseDto;
+import ru.alex.courseModel.model.GradeDto;
 import ru.alex.courseModel.model.StudentProgressOnCourseDto;
 import ru.alex.courseModel.model.StudentDto;
 import ru.alex.courseModel.service.StudentProgressOnCourseService;
@@ -32,8 +33,6 @@ public class StudentProgressOnCourseController {
         studentProgressOnCourseService.removeStudentCourse(courseId, studentId);
     }
 
-
-
     @GetMapping("/current-student-courses")
     public List<CourseDto> getCurrentStudentCourses(@RequestParam ("studentId") long studentId) {
         return CourseDto.getCourseDtoList(studentProgressOnCourseService.getFinishedCourses(studentId, false));
@@ -55,10 +54,10 @@ public class StudentProgressOnCourseController {
     }
 
     @GetMapping("/grades")
-    public List<Grade> getGradesOfStudentCourse(@RequestParam ("studentId") long studentId,
+    public List<GradeDto> getGradesOfStudentCourse(@RequestParam ("studentId") long studentId,
                                                    @RequestParam ("courseId") int courseId) {
         StudentProgressOnCourseId id = new StudentProgressOnCourseId(studentId, courseId);
-        return studentProgressOnCourseService.getStudentCourse(id).getGrades();
+        return GradeDto.getGradeDtoList(studentProgressOnCourseService.getStudentCourse(id).getGrades());
     }
 
     @PostMapping("/grades/add")
@@ -69,9 +68,8 @@ public class StudentProgressOnCourseController {
     }
 
     @PutMapping("/grades/update")
-    public Grade updateGrade(@RequestParam ("id") int gradeId,
-                                @RequestBody Grade grade) {
-        return studentProgressOnCourseService.updateGradeById(gradeId, grade);
+    public GradeDto updateGrade(@RequestBody Grade grade) {
+        return new GradeDto(studentProgressOnCourseService.updateGradeById(grade));
     }
 
     @DeleteMapping("/grades/delete-{id}")
@@ -82,6 +80,20 @@ public class StudentProgressOnCourseController {
     @PutMapping("/finalize-active-course")
     public StudentProgressOnCourseDto finalizeActiveCourse(@RequestParam ("finalGrade") int finalGrade,
                                                            @RequestBody StudentProgressOnCourseId studentProgressOnCourseId) {
-        return new StudentProgressOnCourseDto(studentProgressOnCourseService.setFinalStudentCourse(studentProgressOnCourseId, finalGrade));
+        return new StudentProgressOnCourseDto(studentProgressOnCourseService.finalizeStudentCourse(studentProgressOnCourseId, finalGrade));
+    }
+
+    @GetMapping("/average-grade")
+    public float getAverageGrade(@RequestParam ("studentId") long studentId,
+                                 @RequestParam ("courseId") int courseId) {
+        StudentProgressOnCourseId id = new StudentProgressOnCourseId(studentId, courseId);
+        return studentProgressOnCourseService.getCurrentAverageGrade(id);
+    }
+
+    @GetMapping("/final-grade")
+    public float getFinalGrade(@RequestParam ("studentId") long studentId,
+                               @RequestParam ("courseId") int courseId) {
+        StudentProgressOnCourseId id = new StudentProgressOnCourseId(studentId, courseId);
+        return studentProgressOnCourseService.getFinalGrade(id);
     }
 }

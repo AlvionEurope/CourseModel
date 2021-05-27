@@ -9,11 +9,8 @@ import java.util.List;
 
 @Repository
 public interface StudentProgressOnCourseRepository extends JpaRepository<StudentProgressOnCourse, StudentProgressOnCourseId> {
-
     List<StudentProgressOnCourse> findAllByStudent_Id(long studentId);
     List<StudentProgressOnCourse> findAllByCourse_Id(int courseId);
-
     List<StudentProgressOnCourse> findAllByIsFinishedIsAndStudent_Id(boolean isFinished, long studentId);
-
 }
 
