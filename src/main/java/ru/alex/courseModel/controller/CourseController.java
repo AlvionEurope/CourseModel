@@ -9,7 +9,7 @@ import ru.alex.courseModel.service.CourseService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/course")
 public class CourseController {
 
     private final CourseService courseService;
@@ -29,20 +29,19 @@ public class CourseController {
     }
 
     @PostMapping
-    public CourseDto add(@RequestBody Course course) {
-        return new CourseDto(courseService.save(course));
+    public void add(@RequestBody Course course) {
+        courseService.save(course);
     }
 
     @DeleteMapping("/{id}")
-    public int delete(@PathVariable int id) {
+    public void delete(@PathVariable int id) {
         courseService.delete(id);
-        return id;
     }
 
     @PutMapping("/{id}")
-    public CourseDto update(@PathVariable int id,
-                            @RequestBody Course course) {
-        return new CourseDto(courseService.update(id, course));
+    public void update(@PathVariable int id,
+                       @RequestBody Course course) {
+        courseService.update(id, course);
     }
 
     @PutMapping("/add-professor")

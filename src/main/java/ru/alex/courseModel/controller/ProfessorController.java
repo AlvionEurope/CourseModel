@@ -8,7 +8,7 @@ import ru.alex.courseModel.service.ProfessorService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/professors")
+@RequestMapping("/professor")
 public class ProfessorController {
 
     private final ProfessorService professorService;
@@ -28,8 +28,8 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ProfessorDto add(@RequestBody Professor professor) {
-        return new ProfessorDto(professorService.save(professor));
+    public void add(@RequestBody Professor professor) {
+        professorService.save(professor);
     }
 
     @DeleteMapping("/{id}")
@@ -38,8 +38,8 @@ public class ProfessorController {
     }
 
     @PutMapping("/{id}")
-    public ProfessorDto update(@PathVariable long id,
+    public void update(@PathVariable long id,
                                @RequestBody Professor professor) {
-        return new ProfessorDto(professorService.update(id, professor));
+        professorService.update(id, professor);
     }
 }

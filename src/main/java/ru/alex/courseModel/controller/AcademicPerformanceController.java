@@ -12,7 +12,7 @@ import ru.alex.courseModel.service.AcademicPerformanceService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/active-courses")
+@RequestMapping("/academic-performance")
 public class AcademicPerformanceController {
 
     private final AcademicPerformanceService academicPerformanceService;
@@ -21,15 +21,15 @@ public class AcademicPerformanceController {
         this.academicPerformanceService = academicPerformanceService;
     }
 
-    @GetMapping("/add-course-to-student")
-    public void addCourseToStudent(@RequestParam ("courseId") int courseId,
-                                   @RequestParam ("studentId") long studentId) {
+    @PostMapping
+    public void add(@RequestParam ("courseId") int courseId,
+                    @RequestParam ("studentId") long studentId) {
         academicPerformanceService.addStudentCourse(courseId, studentId);
     }
 
-    @DeleteMapping("/delete-course-from-student")
-    public void deleteCourseFromStudent(@RequestParam ("courseId") int courseId,
-                                        @RequestParam ("studentId") long studentId) {
+    @DeleteMapping
+    public void delete(@RequestParam ("courseId") int courseId,
+                       @RequestParam ("studentId") long studentId) {
         academicPerformanceService.removeStudentCourse(courseId, studentId);
     }
 
@@ -53,6 +53,12 @@ public class AcademicPerformanceController {
         return CourseDto.getCourseDtoList(academicPerformanceService.getAllStudentCourses(studentId));
     }
 
+    @PutMapping("/finalize")
+    public void finalizeActiveCourse(@RequestParam ("finalGrade") int finalGrade,
+                                                       @RequestBody AcademicPerformanceId academicPerformanceId) {
+        academicPerformanceService.finalizeStudentCourse(academicPerformanceId, finalGrade);
+    }
+
     @GetMapping("/grades")
     public List<GradeDto> getGradesOfStudentCourse(@RequestParam ("studentId") long studentId,
                                                    @RequestParam ("courseId") int courseId) {
@@ -60,27 +66,21 @@ public class AcademicPerformanceController {
         return GradeDto.getGradeDtoList(academicPerformanceService.get(id).getGrades());
     }
 
-    @PostMapping("/grades/add")
+    @PostMapping("/grades")
     public void addGrade(@RequestParam ("studentId") long studentId,
                                    @RequestParam ("courseId") int courseId,
                                    @RequestBody Grade grade) {
         academicPerformanceService.addGrade(studentId, courseId, grade);
     }
 
-    @PutMapping("/grades/update")
-    public GradeDto updateGrade(@RequestBody Grade grade) {
-        return new GradeDto(academicPerformanceService.updateGradeById(grade));
+    @PutMapping("/grades")
+    public void updateGrade(@RequestBody Grade grade) {
+        academicPerformanceService.updateGradeById(grade);
     }
 
-    @DeleteMapping("/grades/delete-{id}")
+    @DeleteMapping("/grades/{id}")
     public void deleteGrade(@PathVariable long id) {
         academicPerformanceService.deleteGradeById(id);
-    }
-
-    @PutMapping("/finalize-active-course")
-    public AcademicPerformanceDto finalizeActiveCourse(@RequestParam ("finalGrade") int finalGrade,
-                                                       @RequestBody AcademicPerformanceId academicPerformanceId) {
-        return new AcademicPerformanceDto(academicPerformanceService.finalizeStudentCourse(academicPerformanceId, finalGrade));
     }
 
     @GetMapping("/average-grade")
