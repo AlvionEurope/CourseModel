@@ -27,7 +27,7 @@ public class Course {
     private Set<Professor> professors = new HashSet<>();
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<StudentProgressOnCourse> studentProgressOnCourses = new ArrayList<>();
+    private List<AcademicPerformance> academicPerformances = new ArrayList<>();
 
     public void addProfessor(Professor professor) {
         this.professors.add(professor);

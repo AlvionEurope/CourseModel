@@ -10,10 +10,10 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class StudentProgressOnCourse {
+public class AcademicPerformance {
 
     @EmbeddedId
-    private StudentProgressOnCourseId id;
+    private AcademicPerformanceId id;
 
     @ManyToOne
     @MapsId("courseId")
@@ -24,27 +24,27 @@ public class StudentProgressOnCourse {
     private Student student;
 
     private boolean isFinished;
-    private int finalGrade;
+    private Integer finalGrade;
 
 
-    public StudentProgressOnCourse(Student student, Course course) {
+    public AcademicPerformance(Student student, Course course) {
 
-        this.id = new StudentProgressOnCourseId(student.getId(), course.getId());
+        this.id = new AcademicPerformanceId(student.getId(), course.getId());
         this.student = student;
         this.course = course;
         this.isFinished = false;
-        this.finalGrade = 0;
+        this.finalGrade = null;
 
-        student.getStudentProgressOnCourses().add(this);
-        course.getStudentProgressOnCourses().add(this);
+        student.getAcademicPerformances().add(this);
+        course.getAcademicPerformances().add(this);
     }
 
-    @OneToMany(mappedBy = "studentProgressOnCourse", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "academicPerformance", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Grade> grades = new ArrayList<>();
 
     public void addGrade(Grade grade) {
         this.grades.add(grade);
-        grade.setStudentProgressOnCourse(this);
+        grade.setAcademicPerformance(this);
     }
 
     public float getAverageGrade() {

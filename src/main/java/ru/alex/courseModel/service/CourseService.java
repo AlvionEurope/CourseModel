@@ -20,7 +20,7 @@ public class CourseService {
         this.professorService = professorService;
     }
 
-    public Course saveCourse(Course course) {
+    public Course save(Course course) {
         return courseRepository.save(course);
     }
 
@@ -28,16 +28,16 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public Course getCourseById(int id) {
+    public Course get(int id) {
         return courseRepository.getOne(id);
     }
 
-    public Course updateCourse(int id, Course course) {
+    public Course update(int id, Course course) {
         course.setId(id);
-        return saveCourse(course);
+        return save(course);
     }
 
-    public void deleteCourse(int id) {
+    public void delete(int id) {
         courseRepository.deleteById(id);
     }
 
@@ -54,13 +54,13 @@ public class CourseService {
     }
 
     public List<Course> getStudentCourses(long studentId) {
-        return courseRepository.findAllByStudentProgressOnCourses_Student_Id(studentId);
+        return courseRepository.findAllByAcademicPerformances_Student_Id(studentId);
     }
 
     public List<Course> getAvailableStudentCourses(long studentId) {
         // Не придумал, как одним запросом сделать
         List<Course> availableCourses = new ArrayList<>(courseRepository.findAll());
-        availableCourses.removeAll(courseRepository.findAllByStudentProgressOnCourses_Student_Id(studentId));
+        availableCourses.removeAll(courseRepository.findAllByAcademicPerformances_Student_Id(studentId));
         return availableCourses;
     }
 }

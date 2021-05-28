@@ -19,7 +19,7 @@ public class ProfessorService {
         this.courseRepository = courseRepository;
     }
 
-    public Professor saveProfessor(Professor professor) {
+    public Professor save(Professor professor) {
         return professorRepository.save(professor);
     }
 
@@ -32,7 +32,7 @@ public class ProfessorService {
         Course course = courseRepository.getOne(courseId);
         professor.addCourse(course);
         course.addProfessor(professor);
-        saveProfessor(professor);
+        save(professor);
     }
 
     public void removeCourse(int courseId, long instructorId) {
@@ -40,21 +40,19 @@ public class ProfessorService {
         Course course = courseRepository.getOne(courseId);
         professor.removeCourse(course);
         course.removeProfessor(professor);
-        saveProfessor(professor);
+        save(professor);
     }
 
-    public Professor getProfessorById(long id) {
+    public Professor get(long id) {
         return professorRepository.getOne(id);
     }
 
-    public Professor updateProfessor(long id, Professor professor) {
+    public Professor update(long id, Professor professor) {
         professor.setId(id);
-        return saveProfessor(professor);
+        return save(professor);
     }
 
     public void deleteProfessor(long id) {
-        if (professorRepository.existsById(id)) {
-            professorRepository.deleteById(id);
-        }
+        professorRepository.deleteById(id);
     }
 }

@@ -15,24 +15,24 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student saveStudent(Student student) {
+    public Student save(Student student) {
         return studentRepository.save(student);
     }
 
-    public List<Student> getAllStudents() {
+    public List<Student> getAll() {
         return studentRepository.findAll();
     }
 
-    public Student getStudentById(long id) {
+    public Student get(long id) {
         return studentRepository.getOne(id);
     }
 
-    public Student updateStudent(long id, Student student) {
+    public Student update(long id, Student student) {
         student.setId(id);
-        return saveStudent(student);
+        return save(student);
     }
 
-    public void deleteStudent(long id) {
+    public void delete(long id) {
         studentRepository.deleteById(id);
     }
 }

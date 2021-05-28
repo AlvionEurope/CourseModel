@@ -17,5 +17,5 @@ public class Grade {
     private int value;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private StudentProgressOnCourse studentProgressOnCourse;
+    private AcademicPerformance academicPerformance;
 }

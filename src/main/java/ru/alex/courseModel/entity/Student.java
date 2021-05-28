@@ -28,5 +28,5 @@ public class Student {
     private float academicPerformance;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<StudentProgressOnCourse> studentProgressOnCourses = new ArrayList<>();
+    private List<AcademicPerformance> academicPerformances = new ArrayList<>();
 }

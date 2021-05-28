@@ -8,7 +8,7 @@ import ru.alex.courseModel.service.ProfessorService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/professor")
+@RequestMapping("/professors")
 public class ProfessorController {
 
     private final ProfessorService professorService;
@@ -18,27 +18,28 @@ public class ProfessorController {
     }
 
     @GetMapping("/all")
-    public List<ProfessorDto> getProfessor() {
+    public List<ProfessorDto> getAll() {
         return ProfessorDto.getProfessorDtoList(professorService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ProfessorDto getProfessorById(@PathVariable long id) {
-        return new ProfessorDto(professorService.getProfessorById(id));
+    public ProfessorDto get(@PathVariable long id) {
+        return new ProfessorDto(professorService.get(id));
     }
 
-    @PostMapping("/add")
-    public ProfessorDto addProfessor(@RequestBody Professor professor) {
-        return new ProfessorDto(professorService.saveProfessor(professor));
+    @PostMapping
+    public ProfessorDto add(@RequestBody Professor professor) {
+        return new ProfessorDto(professorService.save(professor));
     }
 
-    @DeleteMapping("/del-{id}")
-    public void deleteProfessor(@PathVariable long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id) {
         professorService.deleteProfessor(id);
     }
 
-    @PutMapping("/update-{id}")
-    public ProfessorDto updateProfessor(@PathVariable long id, @RequestBody Professor professor) {
-        return new ProfessorDto(professorService.updateProfessor(id, professor));
+    @PutMapping("/{id}")
+    public ProfessorDto update(@PathVariable long id,
+                               @RequestBody Professor professor) {
+        return new ProfessorDto(professorService.update(id, professor));
     }
 }

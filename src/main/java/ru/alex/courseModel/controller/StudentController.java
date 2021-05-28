@@ -8,7 +8,7 @@ import ru.alex.courseModel.service.StudentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentController {
 
     private final StudentService studentService;
@@ -18,30 +18,30 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public List<StudentDto> getStudents() {
-        return StudentDto.getStudentDtoList(studentService.getAllStudents());
+    public List<StudentDto> getAll() {
+        return StudentDto.getStudentDtoList(studentService.getAll());
     }
 
     @GetMapping("/{id}")
-    public StudentDto getStudentById(@PathVariable long id) {
-        return new StudentDto(studentService.getStudentById(id));
+    public StudentDto get(@PathVariable long id) {
+        return new StudentDto(studentService.get(id));
     }
 
-    @PostMapping("/add")
-    public StudentDto addStudent(@RequestBody Student student) {
-        return new StudentDto(studentService.saveStudent(student));
+    @PostMapping
+    public StudentDto add(@RequestBody Student student) {
+        return new StudentDto(studentService.save(student));
     }
 
-    @DeleteMapping("/del-{id}")
-    public long deleteStudent(@PathVariable long id) {
-        studentService.deleteStudent(id);
+    @DeleteMapping("/{id}")
+    public long delete(@PathVariable long id) {
+        studentService.delete(id);
         return id;
     }
 
-    @PutMapping("/update-{id}")
-    public StudentDto updateStudent(@PathVariable long id,
-                                    @RequestBody Student student) {
-        return new StudentDto(studentService.updateStudent(id, student));
+    @PutMapping("/{id}")
+    public StudentDto update(@PathVariable long id,
+                             @RequestBody Student student) {
+        return new StudentDto(studentService.update(id, student));
     }
 }
 

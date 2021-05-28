@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class StudentProgressOnCourseId implements Serializable {
+public class AcademicPerformanceId implements Serializable {
     private long studentId;
     private int courseId;
 }
