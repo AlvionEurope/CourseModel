@@ -15,7 +15,4 @@ public class Grade {
     private long id;
 
     private int value;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private AcademicPerformance academicPerformance;
 }

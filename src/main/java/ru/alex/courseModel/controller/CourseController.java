@@ -44,30 +44,19 @@ public class CourseController {
         courseService.update(id, course);
     }
 
-    @PutMapping("/add-professor")
-    public void addProfessor(@RequestParam ("courseId") int courseId,
-                             @RequestParam ("professorId") long professorId) {
-        courseService.addProfessorToCourse(courseId, professorId);
-    }
-
-    @DeleteMapping("/delete-professor")
-    public void deleteProfessor(@RequestParam ("courseId") int courseId,
-                                @RequestParam ("professorId") long professorId) {
-        courseService.deleteProfessorFromCourse(courseId, professorId);
-    }
-
-    @GetMapping("/course-professors")
-    public List<ProfessorDto> getCourseProfessors(@RequestParam ("courseId") int courseId) {
+    @GetMapping("/professors")
+    public List<ProfessorDto> getCourseProfessors(@RequestParam("courseId") int courseId) {
         return ProfessorDto.getProfessorDtoList(courseService.getCourseProfessors(courseId));
     }
 
-    @GetMapping("/current-student-courses")
-    public List<CourseDto> getStudentCourses(@RequestParam ("studentId") int studentId) {
-        return CourseDto.getCourseDtoList(courseService.getStudentCourses(studentId));
+    @GetMapping("/available-student-courses")
+    public List<CourseDto> getAvailableStudentCourses(@RequestParam("studentId") long studentId) {
+        return CourseDto.getCourseDtoList(courseService.getAvailableStudentCourses(studentId));
     }
 
-    @GetMapping("/available-student-courses")
-    public List<CourseDto> getAvailableStudentCourses(@RequestParam ("studentId") long studentId) {
-        return CourseDto.getCourseDtoList(courseService.getAvailableStudentCourses(studentId));
+    @PostMapping("/add-student")
+    public void addStudentToCourse(@RequestParam("courseId") int courseId,
+                                   @RequestParam("studentId") long studentId) {
+        courseService.addStudentToCourse(courseId, studentId);
     }
 }

@@ -6,5 +6,4 @@ import ru.alex.courseModel.entity.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-
 }

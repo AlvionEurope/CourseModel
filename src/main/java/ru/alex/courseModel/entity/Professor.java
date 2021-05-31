@@ -22,14 +22,4 @@ public class Professor {
 
     @ManyToMany(mappedBy = "professors")
     private List<Course> courses = new ArrayList<>();
-
-    public void addCourse(Course course) {
-        this.courses.add(course);
-        course.getProfessors().add(this);
-    }
-
-    public void removeCourse(Course course) {
-        this.courses.remove(course);
-        course.getProfessors().remove(this);
-    }
 }

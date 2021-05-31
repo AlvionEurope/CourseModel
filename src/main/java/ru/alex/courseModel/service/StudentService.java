@@ -1,22 +1,22 @@
 package ru.alex.courseModel.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.alex.courseModel.entity.*;
+import ru.alex.courseModel.reposttory.CourseRepository;
 import ru.alex.courseModel.reposttory.StudentRepository;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
-
-    public Student save(Student student) {
-        return studentRepository.save(student);
+    public void save(Student student) {
+        studentRepository.save(student);
     }
 
     public List<Student> getAll() {
@@ -27,12 +27,16 @@ public class StudentService {
         return studentRepository.getOne(id);
     }
 
-    public Student update(long id, Student student) {
+    public void update(long id, Student student) {
         student.setId(id);
-        return save(student);
+        save(student);
     }
 
     public void delete(long id) {
         studentRepository.deleteById(id);
+    }
+
+    public List<Course> getStudentCourses(long studentId) {
+        return courseRepository.findAllByTrainingCourses_Student_Id(studentId);
     }
 }

@@ -26,6 +26,19 @@ public class Student {
     @Column(name = "academic_performance")
     private float academicPerformance;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<AcademicPerformance> academicPerformances = new ArrayList<>();
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    private List<TrainingCourse> trainingCourses = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", gradeBook=" + gradeBook +
+                ", academicPerformance=" + academicPerformance +
+                '}';
+    }
 }

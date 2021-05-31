@@ -39,7 +39,19 @@ public class ProfessorController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable long id,
-                               @RequestBody Professor professor) {
+                       @RequestBody Professor professor) {
         professorService.update(id, professor);
+    }
+
+    @PutMapping("/add-course")
+    public void assignCourseToProfessor(@RequestParam("courseId") int courseId,
+                                        @RequestParam("professorId") long professorId) {
+        professorService.assignCourse(courseId, professorId);
+    }
+
+    @DeleteMapping("/delete-course")
+    public void deleteCourseFromProfessor(@RequestParam("courseId") int courseId,
+                                          @RequestParam("professorId") long professorId) {
+        professorService.removeCourse(courseId, professorId);
     }
 }

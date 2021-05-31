@@ -2,6 +2,7 @@ package ru.alex.courseModel.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.alex.courseModel.entity.*;
+import ru.alex.courseModel.model.CourseDto;
 import ru.alex.courseModel.model.StudentDto;
 import ru.alex.courseModel.service.StudentService;
 
@@ -41,6 +42,11 @@ public class StudentController {
     public void update(@PathVariable long id,
                        @RequestBody Student student) {
         studentService.update(id, student);
+    }
+
+    @GetMapping("/current-courses")
+    public List<CourseDto> getStudentCourses(@RequestParam ("studentId") int studentId) {
+        return CourseDto.getCourseDtoList(studentService.getStudentCourses(studentId));
     }
 }
 

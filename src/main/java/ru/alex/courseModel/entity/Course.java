@@ -21,21 +21,20 @@ public class Course {
     private float cost;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "auto_professor_course",
+    @JoinTable(name = "professor_course",
             joinColumns = {@JoinColumn(name = "course_id")},
             inverseJoinColumns = {@JoinColumn(name = "professor_id")})
     private Set<Professor> professors = new HashSet<>();
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<AcademicPerformance> academicPerformances = new ArrayList<>();
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TrainingCourse> trainingCourses = new ArrayList<>();
 
-    public void addProfessor(Professor professor) {
-        this.professors.add(professor);
-        professor.getCourses().add(this);
-    }
-
-    public void removeProfessor(Professor professor) {
-        this.professors.remove(professor);
-        professor.getCourses().remove(this);
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                '}';
     }
 }
