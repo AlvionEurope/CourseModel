@@ -48,15 +48,12 @@ public class TrainingCourseController {
     @GetMapping("/average-grade")
     public float getAverageGrade(@RequestParam("studentId") long studentId,
                                  @RequestParam("courseId") int courseId) {
-        return trainingCourseService.getAverageGrade(courseId, studentId);
+        return trainingCourseService.getAverageGrade(studentId, courseId);
     }
 
     @GetMapping("/final-grade")
     public Integer getFinalGrade(@RequestParam("studentId") long studentId,
                                  @RequestParam("courseId") int courseId) {
-        TrainingCourseId id = new TrainingCourseId(studentId, courseId);
-        return trainingCourseService.getFinalGrade(id);
+        return trainingCourseService.getFinalGrade(studentId, courseId);
     }
-
-
 }

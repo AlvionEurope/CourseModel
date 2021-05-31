@@ -32,7 +32,7 @@ public class TrainingCourseService {
         trainingCourseRepository.deleteById(id);
     }
 
-    public float getAverageGrade(int courseId, long studentId) {
+    public float getAverageGrade(long studentId, int courseId) {
         TrainingCourseId id = new TrainingCourseId(studentId, courseId);
         List<Grade> grades = trainingCourseRepository.getOne(id).getGrades();
         return 1f * grades.stream().mapToInt(Grade::getValue).sum() / grades.size();
@@ -47,7 +47,8 @@ public class TrainingCourseService {
         trainingCourseRepository.save(trainingCourse);
     }
 
-    public Integer getFinalGrade(TrainingCourseId id) {
+    public Integer getFinalGrade(long studentId, int courseId) {
+        TrainingCourseId id = new TrainingCourseId(studentId, courseId);
         return trainingCourseRepository.getOne(id).getFinalGrade();
     }
 
@@ -65,19 +66,4 @@ public class TrainingCourseService {
         List<TrainingCourse> courseStudents = trainingCourseRepository.findAllByCourse_Id(courseId);
         return courseStudents.stream().map(TrainingCourse::getStudent).collect(Collectors.toList());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

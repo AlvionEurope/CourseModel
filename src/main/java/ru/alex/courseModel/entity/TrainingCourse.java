@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,10 +35,10 @@ public class TrainingCourse {
         this.isFinished = false;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "student_id", insertable = false, updatable = false)
-    @JoinColumn(name = "course_id", insertable = false, updatable = false)
-    private List<Grade> grades = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "student_id")
+    private List<Grade> grades;
 
     public void addRelations() {
         student.getTrainingCourses().add(this);

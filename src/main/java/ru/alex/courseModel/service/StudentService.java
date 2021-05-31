@@ -2,11 +2,13 @@ package ru.alex.courseModel.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.alex.courseModel.entity.*;
 import ru.alex.courseModel.reposttory.CourseRepository;
 import ru.alex.courseModel.reposttory.StudentRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

@@ -45,7 +45,7 @@ public class StudentController {
     }
 
     @GetMapping("/current-courses")
-    public List<CourseDto> getStudentCourses(@RequestParam ("studentId") int studentId) {
+    public List<CourseDto> getStudentCourses(@RequestParam("studentId") long studentId) {
         return CourseDto.getCourseDtoList(studentService.getStudentCourses(studentId));
     }
 }

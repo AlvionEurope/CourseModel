@@ -16,8 +16,10 @@ public class GradeService {
     public void addGrade(long studentId, int courseId, Grade grade) {
         TrainingCourseId id = new TrainingCourseId(studentId, courseId);
         TrainingCourse trainingCourse = trainingCourseRepository.getOne(id);
-        trainingCourse.getGrades().add(grade);
-        trainingCourseRepository.save(trainingCourse);
+        if (!trainingCourse.isFinished()) {
+            trainingCourse.getGrades().add(grade);
+            gradeRepository.save(grade);
+        }
     }
 
     public void updateGradeById(Grade grade) {

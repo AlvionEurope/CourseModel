@@ -5,6 +5,11 @@ import ru.alex.courseModel.entity.Professor;
 import ru.alex.courseModel.model.ProfessorDto;
 import ru.alex.courseModel.service.ProfessorService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 @RestController
@@ -53,5 +58,28 @@ public class ProfessorController {
     public void deleteCourseFromProfessor(@RequestParam("courseId") int courseId,
                                           @RequestParam("professorId") long professorId) {
         professorService.removeCourse(courseId, professorId);
+    }
+
+    @GetMapping("/download-report")
+    public void getReport(HttpServletResponse response) throws IOException {
+        byte[] bytes = professorService.getReport();
+        String mimeType = "application/octet-stream";
+        response.setContentType(mimeType);
+        response.setContentLength(bytes.length);
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"", "report.xlsx");
+        response.setHeader(headerKey, headerValue);
+
+        InputStream in = new ByteArrayInputStream(bytes);
+        OutputStream out = response.getOutputStream();
+
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = in.read(buffer)) != -1) {
+            out.write(buffer, 0, bytesRead);
+        }
+
+        in.close();
+        out.close();
     }
 }

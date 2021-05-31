@@ -30,7 +30,7 @@ public class ProfessorDto {
             return new ArrayList<>();
         }
         List<ProfessorDto> professorDtoList = new ArrayList<>();
-        for(Professor professor : professors) {
+        for (Professor professor : professors) {
             professorDtoList.add(new ProfessorDto(professor));
         }
         return professorDtoList;

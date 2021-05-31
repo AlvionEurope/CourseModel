@@ -28,17 +28,4 @@ public class Student {
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private List<TrainingCourse> trainingCourses = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", gradeBook=" + gradeBook +
-                ", academicPerformance=" + academicPerformance +
-                '}';
-    }
 }

@@ -22,7 +22,7 @@ public class CourseDto {
 
     public static List<CourseDto> getCourseDtoList(List<Course> courses) {
         List<CourseDto> courseDtoList = new ArrayList<>();
-        for(Course course : courses) {
+        for (Course course : courses) {
             courseDtoList.add(new CourseDto(course));
         }
         return courseDtoList;
