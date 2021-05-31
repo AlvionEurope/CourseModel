@@ -15,7 +15,7 @@ public class ProfessorDto {
     private String name;
     private String address;
     private String phone;
-    private float payment;
+    private Float payment;
 
     public ProfessorDto(Professor professor) {
         this.id = professor.getId();
