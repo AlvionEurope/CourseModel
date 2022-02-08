@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Teacher {
     private String name;
-    private String adress;
+    private String address;
     private String tel;
-    private Float payment;
+    private Float salary;
 }

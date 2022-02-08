@@ -10,13 +10,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CourseCompletion {
-    List<Integer> estimates;
+    String studentName;
+    String courseName;
+    String teacherName;
+    List<Integer> grades;
 
-   public void getAverageBall(){
-
-   }
-
-    public void getFinalBall(){
-
+    public CourseCompletion(String studentName, String courseName, List<Integer> grades) {
+        this.studentName = studentName;
+        this.courseName = courseName;
+        this.grades = grades;
     }
 }

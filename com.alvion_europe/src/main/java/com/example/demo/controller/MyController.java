@@ -2,31 +2,34 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Course;
 import com.example.demo.entity.Student;
-import com.example.demo.service.Services;
-import org.apache.catalina.LifecycleState;
+import com.example.demo.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 public class MyController {
 
-    private Services services;
+    @Autowired
+    private CourseCompetitionService services;
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private TeacherService teacherService;
+    @Autowired
+    CourseService courseService;
 
-    @PostMapping("/add")
-    public String addStudent(@RequestBody Student student) {
-        services.addStudents(student);
-        return "студент с именем " + student.getName() + " добавлен!";
+    @PostMapping("/students")
+    public Student addStudent(@RequestBody Student student) {
+        studentService.create(student);
+        return student;
     }
 
-    @GetMapping("/remove/{id}")
-    public String remove(@PathVariable int id) {
-        services.removeStudents(id);
-        return "студент с " + id + "удален!";
+    @PostMapping("/courses")
+    public Course addcourse(@RequestBody Course course) {
+        courseService.create(course);
+        return course;
     }
 
-    @GetMapping("/course/{id}")
-    public List<Course> getCourses(@PathVariable int id) {
-        return services.getCourse(id);
-    }
+
 }
