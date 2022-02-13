@@ -18,7 +18,7 @@ public class StudentRepositoryImpl implements StudentRepository{
 
     @Override
     public Student findByName(String studentName) {
-        return studentList.stream().filter(student -> student.getName().equals(studentName)).findFirst().get();
+        return studentList.stream().filter(student -> student.getName().equals(studentName)).findFirst().orElse(null);
     }
 
 }

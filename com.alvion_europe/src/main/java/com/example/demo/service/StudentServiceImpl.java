@@ -6,6 +6,8 @@ import com.example.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements StudentService{
 
@@ -20,9 +22,11 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public void create(Student entity) {
         Student studentName = studentRepository.findByName(entity.getName());
-        if (studentName.getName().equals(entity.getName())) {
+        if (studentName == null) {
+            studentRepository.create(entity);
+        } else {
             throw new ExeptionMessage("Студент с таким именем уже существует!");
         }
-        studentRepository.create(entity);
+
     }
 }

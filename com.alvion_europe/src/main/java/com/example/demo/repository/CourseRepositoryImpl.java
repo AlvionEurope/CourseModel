@@ -17,6 +17,7 @@ public class CourseRepositoryImpl implements CourseRepository{
 
     @Override
     public Course findByName(String courseName) {
-        return entities.stream().filter(entity -> entity.getName().equals(courseName)).findFirst().get();
+        return entities.stream().filter(entity -> entity.getName().equals(courseName)).findFirst().orElse(null);
     }
+
 }
