@@ -1,5 +1,6 @@
 package example.service;
 
+import example.dto.TeacherStatistics;
 import example.entity.Teacher;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface TeacherService {
     Optional<Teacher> getTeacherByPhone(String phone);
 
     List<Teacher> getTeachers();
+
+    List<TeacherStatistics> getTeachersWorkload();
 
     void deleteTeacher(int id);
 }

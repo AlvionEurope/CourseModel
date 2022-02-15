@@ -37,6 +37,8 @@ public class App {
                         "8123", 100, null));
                 teacherService.saveTeacher(new Teacher(null, "Alice", "alice@test.com",
                         "7456", 150, null));
+                teacherService.saveTeacher(new Teacher(null, "Jack", "jack@test.com",
+                        "2222", 100, null));
             }
             if (courseService.getCourses().isEmpty()) {
                 courseService.saveCourse(new Course(null, "CS", 72, 2000));

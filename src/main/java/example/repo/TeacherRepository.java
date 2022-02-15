@@ -1,5 +1,6 @@
 package example.repo;
 
+import example.dto.TeacherStatistics;
 import example.entity.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
     @Query("select distinct t from Teacher t left join fetch t.courses")
     @NonNull
     List<Teacher> findAll();
+
+    @Query(nativeQuery = true)
+    List<TeacherStatistics> calcTeacherStatistics();
 }

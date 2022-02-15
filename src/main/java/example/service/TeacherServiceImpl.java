@@ -1,15 +1,18 @@
 package example.service;
 
+import example.dto.TeacherStatistics;
 import example.entity.Teacher;
 import example.repo.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class TeacherServiceImpl implements TeacherService {
     private final TeacherRepository teacherRepository;
 
@@ -41,6 +44,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Teacher> getTeachers() {
         return teacherRepository.findAll();
+    }
+
+    @Override
+    public List<TeacherStatistics> getTeachersWorkload() {
+        return teacherRepository.calcTeacherStatistics();
     }
 
     @Override
