@@ -34,7 +34,7 @@ public class EnrollmentController {
     @PutMapping("{id}")
     public ResponseEntity<GradeDto> updateEnrollment(@PathVariable int id,
                                                      @RequestBody GradeDto grade) {
-        EnrollmentGrade enrollmentGrade = enrollmentService.updateGrade(grade.getId(), grade.getGrade());
+        EnrollmentGrade enrollmentGrade = enrollmentService.updateGrade(id, grade.getGrade());
         return ResponseEntity.ok(modelMapper.map(enrollmentGrade, GradeDto.class));
     }
 

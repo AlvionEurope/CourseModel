@@ -20,4 +20,6 @@ public interface StudentService {
     void deleteStudent(int id);
 
     boolean canEnrollInCourse(int id, int courseId);
+
+    void updateAverageGrade(int id);
 }

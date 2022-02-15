@@ -3,7 +3,6 @@ package example.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,7 +32,8 @@ public class Student {
     @Column(name = "book_id")
     private int bookId;
 
-    @Formula("(select avg(ce.grade) from course_enrollment ce where ce.student_id = id)")
+    // store grade separately since @Formula doesn't work with sub selects
+    @Column(name = "average_grade")
     private Float averageGrade;
 
     @ManyToMany
