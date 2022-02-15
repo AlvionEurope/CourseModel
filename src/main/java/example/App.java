@@ -33,11 +33,11 @@ public class App {
                         "2123", "sam@test.com", 274, null, null));
             }
             if (teacherService.getTeachers().isEmpty()) {
-                teacherService.saveTeacher(new Teacher(null, "Bob", "bob@test.com",
+                teacherService.saveTeacher(new Teacher(null, "Bob", "Bob's address",
                         "8123", 100, null));
-                teacherService.saveTeacher(new Teacher(null, "Alice", "alice@test.com",
+                teacherService.saveTeacher(new Teacher(null, "Alice", "Alice's address",
                         "7456", 150, null));
-                teacherService.saveTeacher(new Teacher(null, "Jack", "jack@test.com",
+                teacherService.saveTeacher(new Teacher(null, "Jack", "Jack's address",
                         "2222", 100, null));
             }
             if (courseService.getCourses().isEmpty()) {
