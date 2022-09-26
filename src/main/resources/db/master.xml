@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="floatType" value="float4" dbms="h2"/>
+    <property name="uuidType" value="uuid" dbms="h2"/>
+    <property name="datetimeType" value="datetime" dbms="h2"/>
+    <property name="clobType" value="longvarchar" dbms="h2"/>
+    <property name="blobType" value="blob" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="floatType" value="float4" dbms="postgresql"/>
+    <property name="clobType" value="longvarchar" dbms="postgresql"/>
+    <property name="blobType" value="bytea" dbms="postgresql"/>
+    <property name="uuidType" value="uuid" dbms="postgresql"/>
+    <property name="datetimeType" value="datetime" dbms="postgresql"/>
+
+    <include file="db/changelog/0000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0001_added_entity_Student.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0002_added_entity_Course.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0003_added_entity_Professor.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0004_added_entity_CourseAssignment.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0005_added_entity_GradeAssignment.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0006_added_entity_constraints_Professor.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/0007_added_entity_constraints_CourseAssignment.xml"
+             relativeToChangelogFile="false"/>
+    <include file="db/changelog/0008_added_entity_constraints_GradeAssignment.xml"
+             relativeToChangelogFile="false"/>
+</databaseChangeLog>
