@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <!--
+        Added the entity GradeAssignment.
+    -->
+    <changeSet id="0005" author="golovanov.sergei">
+        <createTable tableName="grade_assignment">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="grade" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="assignment_date" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="course_assignment_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+        <dropDefaultValue tableName="grade_assignment" columnName="assignment_date" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="0005-data" author="golovanov.sergei">
+        <loadData
+                file="db/fake-data/entity_grade_assignment.csv"
+                separator=";"
+                tableName="grade_assignment"
+                usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="grade" type="numeric"/>
+            <column name="assignment_date" type="date"/>
+            <column name="course_assignment_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

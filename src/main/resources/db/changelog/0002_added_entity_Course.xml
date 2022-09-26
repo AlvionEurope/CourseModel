@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <!--
+        Added the entity Course.
+    -->
+    <changeSet id="0002" author="golovanov.sergei">
+        <createTable tableName="course">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="course_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="course_number" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="cost" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="0002-data" author="golovanov.sergei">
+        <loadData
+                file="db/fake-data/entity_course.csv"
+                separator=";"
+                tableName="course"
+                usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="course_name" type="string"/>
+            <column name="course_number" type="numeric"/>
+            <column name="cost" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

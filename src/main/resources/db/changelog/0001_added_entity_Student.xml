@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <!--
+        Added the entity Student.
+    -->
+    <changeSet id="0001" author="golovanov.sergei">
+        <createTable tableName="student">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="full_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="full_addres" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="phone" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="e_mail" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="record_book" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="gpa" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="0001-data" author="golovanov.sergei">
+        <loadData
+                file="db/fake-data/entity_student.csv"
+                separator=";"
+                tableName="student"
+                usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="full_name" type="string"/>
+            <column name="full_addres" type="string"/>
+            <column name="phone" type="string"/>
+            <column name="e_mail" type="string"/>
+            <column name="record_book" type="numeric"/>
+            <column name="gpa" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

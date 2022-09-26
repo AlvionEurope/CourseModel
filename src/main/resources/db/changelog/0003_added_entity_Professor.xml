@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <!--
+        Added the entity Professor.
+    -->
+    <changeSet id="0003" author="golovanov.sergei">
+        <createTable tableName="professor">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="full_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="full_addres" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="phone" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="payment" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0003-relations" author="golovanov.sergei">
+
+        <createTable tableName="rel_professor__course">
+            <column name="course_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="professor_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="professor_id, course_id" tableName="rel_professor__course"/>
+    </changeSet>
+
+    <changeSet id="0003-data" author="golovanov.sergei">
+        <loadData
+                file="db/fake-data/entity_professor.csv"
+                separator=";"
+                tableName="professor"
+                usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="full_name" type="string"/>
+            <column name="full_addres" type="string"/>
+            <column name="phone" type="string"/>
+            <column name="payment" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
