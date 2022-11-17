@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Id Professor</title>
+</head>
+<body>
+Id professor: <p th:text="${professor.getId()}">VALUE</p>
+Name Professor: <p th:text="${professor.getName()}">VALUE</p>
+Address: <p th:text="${professor.getAddress()}">VALUE</p>
+Salary: <p th:text="${professor.getPayment()}">VALUE</p>
+Telephone: <p th:text="${professor.getTelephone()}">VALUE</p>
+<br><a th:href="@{/professor/{id}/edit(id=${professor.getId()})}">Edit</a>
+<form th:method="DELETE" th:action="@{/professor/{id}(id=${professor.getId()})}">
+    <input type="submit" value="Delete">
+</form>
+<br><a href="/professor">Return main menu</a>
+</body>
+</html>
