@@ -1,6 +1,5 @@
 package me.rudnikov.backend.service.impl;
 
-import lombok.AllArgsConstructor;
 import me.rudnikov.backend.dto.create.StudentCreateDto;
 import me.rudnikov.backend.dto.read.StudentDto;
 import me.rudnikov.backend.entity.Student;
@@ -8,18 +7,21 @@ import me.rudnikov.backend.exception.ResourceAlreadyExistsException;
 import me.rudnikov.backend.exception.ResourceNotFoundException;
 import me.rudnikov.backend.repository.StudentRepository;
 import me.rudnikov.backend.service.StudentService;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import org.modelmapper.ModelMapper;
+
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
-
     private final StudentRepository studentRepository;
     private final ModelMapper modelMapper;
 
@@ -109,5 +111,4 @@ public class StudentServiceImpl implements StudentService {
 
         return true;
     }
-
 }

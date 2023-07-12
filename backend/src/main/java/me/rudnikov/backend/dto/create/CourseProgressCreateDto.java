@@ -1,10 +1,13 @@
 package me.rudnikov.backend.dto.create;
 
-import lombok.*;
 import me.rudnikov.backend.dto.read.CourseDto;
 import me.rudnikov.backend.dto.read.StudentDto;
 
-import java.util.List;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,5 +17,4 @@ import java.util.List;
 public class CourseProgressCreateDto {
     private StudentDto student;
     private CourseDto course;
-    private List<Float> grades;
 }

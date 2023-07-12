@@ -1,6 +1,10 @@
 package me.rudnikov.backend.dto.create;
 
-import lombok.*;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 @NoArgsConstructor
 @AllArgsConstructor

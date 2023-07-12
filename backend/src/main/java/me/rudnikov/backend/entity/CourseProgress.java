@@ -1,7 +1,22 @@
 package me.rudnikov.backend.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.FetchType;
+
+import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.util.List;
 
@@ -50,7 +65,7 @@ public class CourseProgress {
     )
     private List<Float> grades;
 
-    public Float getCurrentAverageGrade() {
+    public Float getCurrentAverageGrade(Student student) {
         return (float) this.grades
                 .stream()
                 .mapToDouble(Float::doubleValue)
@@ -60,5 +75,4 @@ public class CourseProgress {
     public Float getFinalGrade(Student student) {
         return 0.0F;
     }
-
 }

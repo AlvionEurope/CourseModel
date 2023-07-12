@@ -1,10 +1,11 @@
 package me.rudnikov.backend.dto.serializer;
 
+import me.rudnikov.backend.dto.read.CourseProgressDto;
+import me.rudnikov.backend.dto.read.StudentDto;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import me.rudnikov.backend.dto.read.CourseProgressDto;
-import me.rudnikov.backend.dto.read.StudentDto;
 
 import java.io.IOException;
 

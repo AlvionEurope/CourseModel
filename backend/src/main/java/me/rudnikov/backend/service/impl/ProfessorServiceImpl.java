@@ -1,28 +1,26 @@
 package me.rudnikov.backend.service.impl;
 
-import lombok.AllArgsConstructor;
 import me.rudnikov.backend.dto.create.ProfessorCreateDto;
 import me.rudnikov.backend.dto.read.ProfessorDto;
-//import me.rudnikov.backend.dto.mapper.CourseMapper;
-//import me.rudnikov.backend.dto.mapper.ProfessorMapper;
 import me.rudnikov.backend.entity.Professor;
 import me.rudnikov.backend.exception.ResourceAlreadyExistsException;
 import me.rudnikov.backend.exception.ResourceNotFoundException;
 import me.rudnikov.backend.repository.ProfessorRepository;
 import me.rudnikov.backend.service.ProfessorService;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import org.modelmapper.ModelMapper;
+
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class ProfessorServiceImpl implements ProfessorService {
-
     private final ProfessorRepository professorRepository;
-//    private final ProfessorMapper professorMapper;
-//    private final CourseMapper courseMapper;
     private final ModelMapper modelMapper;
 
     private final Integer PAGE_SIZE = 25;
@@ -80,5 +78,4 @@ public class ProfessorServiceImpl implements ProfessorService {
 
         return true;
     }
-
 }

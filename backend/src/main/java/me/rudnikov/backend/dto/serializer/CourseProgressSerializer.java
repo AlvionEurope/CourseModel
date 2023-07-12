@@ -1,9 +1,10 @@
 package me.rudnikov.backend.dto.serializer;
 
+import me.rudnikov.backend.dto.read.CourseProgressDto;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import me.rudnikov.backend.dto.read.CourseProgressDto;
 
 import java.io.IOException;
 
@@ -38,6 +39,12 @@ public class CourseProgressSerializer extends StdSerializer<CourseProgressDto> {
                 {
                     gen.writeNumberField("id", value.getCourseId());
                     gen.writeStringField("name", value.getCourseName());
+
+                    String professorFullName = value.getCourseProfessorFullName();
+
+                    if (professorFullName != null) {
+                        gen.writeStringField("professor", value.getCourseProfessorFullName());
+                    }
                 }
                 gen.writeEndObject();
             }

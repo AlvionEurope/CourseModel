@@ -1,6 +1,5 @@
 package me.rudnikov.backend.configuration;
 
-import lombok.AllArgsConstructor;
 import me.rudnikov.backend.entity.Course;
 import me.rudnikov.backend.entity.CourseProgress;
 import me.rudnikov.backend.entity.Professor;
@@ -9,20 +8,26 @@ import me.rudnikov.backend.repository.CourseProgressRepository;
 import me.rudnikov.backend.repository.CourseRepository;
 import me.rudnikov.backend.repository.ProfessorRepository;
 import me.rudnikov.backend.repository.StudentRepository;
+import me.rudnikov.backend.service.SubscriptionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.AllArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Configuration
 @AllArgsConstructor
 public class ApplicationInitConfiguration {
-
     private final StudentRepository studentRepository;
     private final ProfessorRepository professorRepository;
     private final CourseRepository courseRepository;
     private final CourseProgressRepository courseProgressRepository;
+
+    private final SubscriptionService subscriptionService;
 
     @Bean
     public CommandLineRunner onStartupInit() {
@@ -65,7 +70,6 @@ public class ApplicationInitConfiguration {
                     .name("Программирование на Java 11")
                     .number(1)
                     .price(1000F)
-                    .students(List.of(firstStudent, secondStudent))
                     .professor(firstProfessor)
                     .build();
 
@@ -74,8 +78,7 @@ public class ApplicationInitConfiguration {
                     .name("WEB-программирование. Основы. (HTML, CSS)")
                     .number(2)
                     .price(5000F)
-                    .students(List.of(secondStudent))
-                    .professor(secondProfessor)
+                    .professor(firstProfessor)
                     .build();
 
             Course thirdCourse = Course
@@ -84,47 +87,44 @@ public class ApplicationInitConfiguration {
                     .number(3)
                     .price(15000F)
                     .students(List.of(firstStudent))
-                    .professor(null)
+                    .professor(secondProfessor)
                     .build();
 
             Course fourthCourse = Course
                     .builder()
                     .name("React")
                     .number(3)
-                    .price(5000F)
-                    .students(List.of(firstStudent, secondStudent))
-                    .professor(firstProfessor)
-                    .build();
-
-            CourseProgress firstCourseProgress = CourseProgress.builder()
-                    .student(firstStudent)
-                    .course(firstCourse)
-                    .grades(List.of(50F, 60F, 70F))
-                    .build();
-
-            CourseProgress secondCourseProgress = CourseProgress.builder()
-                    .student(secondStudent)
-                    .course(secondCourse)
-                    .grades(List.of(75F, 60F, 70F))
-                    .build();
-
-            CourseProgress thirdCourseProgress = CourseProgress.builder()
-                    .student(firstStudent)
-                    .course(thirdCourse)
-                    .grades(List.of(75F, 80F, 70F))
-                    .build();
-
-            CourseProgress fourthCourseProgress = CourseProgress.builder()
-                    .student(firstStudent)
-                    .course(fourthCourse)
-                    .grades(List.of(80F, 80F, 75F))
+                    .price(25000F)
+                    .professor(null)
                     .build();
 
             studentRepository.saveAll(List.of(firstStudent, secondStudent));
             professorRepository.saveAll(List.of(firstProfessor, secondProfessor));
             courseRepository.saveAll(List.of(firstCourse, secondCourse, thirdCourse, fourthCourse));
-            courseProgressRepository.saveAll(List.of(firstCourseProgress, secondCourseProgress, thirdCourseProgress, fourthCourseProgress));
+
+            subscriptionService.subscribeStudentToCourse(1L, 1L);
+            subscriptionService.subscribeStudentToCourse(1L, 2L);
+            subscriptionService.subscribeStudentToCourse(2L, 1L);
+            subscriptionService.subscribeStudentToCourse(1L, 3L);
+            subscriptionService.subscribeStudentToCourse(2L, 4L);
+
+            List<CourseProgress> courseProgressList = courseProgressRepository.findAll();
+            courseProgressList.forEach(courseProgress -> courseProgress.setGrades(getRandomGradeList()));
+            courseProgressRepository.saveAll(courseProgressList);
         };
     }
 
+    private List<Float> getRandomGradeList() {
+        List<Float> randomGradeList = new ArrayList<>();
+        Random random = new Random();
+
+        int numberOfElements = random.nextInt(3) + 3;
+
+        for (int i = 0; i < numberOfElements; i++) {
+            float value = random.nextFloat() * 40 + 60;
+            randomGradeList.add(value);
+        }
+
+        return randomGradeList;
+    }
 }

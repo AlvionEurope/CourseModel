@@ -1,16 +1,22 @@
 package me.rudnikov.backend.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
 
-import lombok.Getter;
 import lombok.Setter;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.ToString;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity(
         name = "student"
@@ -18,14 +24,12 @@ import java.util.stream.Collectors;
 @Table(
         name = "students"
 )
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 public class Student {
-
     @Id
     @SequenceGenerator(
             name = "student_sequence",
@@ -77,10 +81,6 @@ public class Student {
     )
     private List<CourseProgress> courseProgressList;
 
-    public void enrollToCourse(Course course) {
-        course.addStudent(this);
-    }
-
     public List<Course> getListOfTakenCourses() {
         return this.courseProgressList
                 .stream()
@@ -88,12 +88,23 @@ public class Student {
                 .toList();
     }
 
-    public Float getAveragePerformance() {
+    public Float getAveragePerformanceByAllCourses() {
         return (float) this.courseProgressList
                 .stream()
                 .flatMap(courseProgress -> courseProgress.getGrades().stream())
                 .mapToDouble(Float::doubleValue)
                 .average()
                 .orElse(0.0F);
+    }
+
+    public Float getAveragePerformanceByCourseName(String courseName) {
+        return (float) this.courseProgressList
+                .stream()
+                .filter(courseProgress -> courseProgress.getCourse().getName().equals(courseName))
+                .flatMap(courseProgress -> courseProgress.getGrades().stream())
+                .mapToDouble(Float::doubleValue)
+                .average()
+                .orElse(0.0F);
+
     }
 }

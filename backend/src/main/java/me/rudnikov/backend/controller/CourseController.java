@@ -1,6 +1,5 @@
 package me.rudnikov.backend.controller;
 
-import lombok.AllArgsConstructor;
 import me.rudnikov.backend.dto.create.CourseCreateDto;
 import me.rudnikov.backend.dto.read.CourseDto;
 import me.rudnikov.backend.service.CourseService;
@@ -8,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
