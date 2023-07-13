@@ -1,0 +1,4 @@
+rootProject.name = 'coursemodel'
+
+include 'backend'
+include 'frontend'
