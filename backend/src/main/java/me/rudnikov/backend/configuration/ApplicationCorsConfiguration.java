@@ -10,7 +10,6 @@ import java.util.List;
 
 @Configuration
 public class ApplicationCorsConfiguration {
-
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -23,5 +22,4 @@ public class ApplicationCorsConfiguration {
         source.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(source);
     }
-
 }

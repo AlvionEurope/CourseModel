@@ -86,7 +86,6 @@ public class ApplicationInitConfiguration {
                     .name("Angular + Java Spring")
                     .number(3)
                     .price(15000F)
-                    .students(List.of(firstStudent))
                     .professor(secondProfessor)
                     .build();
 

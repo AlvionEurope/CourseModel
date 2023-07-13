@@ -1,17 +1,6 @@
 package me.rudnikov.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -83,12 +72,4 @@ public class Course {
             }
     )
     private List<Student> students;
-
-    public void addStudent(Student student) {
-        this.students.add(student);
-    }
-
-    public void removeStudent(Student student) {
-        this.students.remove(student);
-    }
 }

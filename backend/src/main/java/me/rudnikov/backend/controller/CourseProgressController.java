@@ -2,6 +2,7 @@ package me.rudnikov.backend.controller;
 
 import me.rudnikov.backend.dto.create.CourseProgressCreateDto;
 import me.rudnikov.backend.dto.read.CourseProgressDto;
+import me.rudnikov.backend.dto.update.CourseProgressUpdateDto;
 import me.rudnikov.backend.service.CourseProgressService;
 
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,6 @@ import java.util.List;
 )
 @AllArgsConstructor
 public class CourseProgressController {
-
     private final CourseProgressService courseProgressService;
 
     // Create course progress (HTTP::POST)
@@ -70,7 +70,7 @@ public class CourseProgressController {
     )
     public ResponseEntity<Boolean> updateCourseProgressById(
             @PathVariable("id") Long id,
-            CourseProgressDto dto
+            @RequestBody CourseProgressUpdateDto dto
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -89,5 +89,4 @@ public class CourseProgressController {
                 .status(HttpStatus.OK)
                 .body(courseProgressService.deleteCourseProgressById(id));
     }
-
 }

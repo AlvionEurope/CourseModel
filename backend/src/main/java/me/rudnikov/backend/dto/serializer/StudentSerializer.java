@@ -37,7 +37,7 @@ public class StudentSerializer extends StdSerializer<StudentDto> {
             {
                 for (CourseProgressDto courseProgress : value.getCourseProgressList()) {
                     gen.writeStartObject();
-                    gen.writeNumberField("id", courseProgress.getStudentId());
+                    gen.writeNumberField("id", courseProgress.getId());
                     gen.writeFieldName("course");
                     {
                         gen.writeStartObject();

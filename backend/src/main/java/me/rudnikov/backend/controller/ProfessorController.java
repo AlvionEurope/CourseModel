@@ -2,6 +2,7 @@ package me.rudnikov.backend.controller;
 
 import me.rudnikov.backend.dto.create.ProfessorCreateDto;
 import me.rudnikov.backend.dto.read.ProfessorDto;
+import me.rudnikov.backend.dto.update.ProfessorUpdateDto;
 import me.rudnikov.backend.service.ProfessorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +19,6 @@ import java.util.List;
 )
 @AllArgsConstructor
 public class ProfessorController {
-
     private final ProfessorService professorService;
 
     // Create course (HTTP::POST)
@@ -69,7 +69,7 @@ public class ProfessorController {
     )
     public ResponseEntity<Boolean> updateProfessorById(
             @PathVariable("id") Long id,
-            ProfessorDto dto
+            @RequestBody ProfessorUpdateDto dto
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -88,5 +88,4 @@ public class ProfessorController {
                 .status(HttpStatus.OK)
                 .body(professorService.deleteProfessorById(id));
     }
-
 }
