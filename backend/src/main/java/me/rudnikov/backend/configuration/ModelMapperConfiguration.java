@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 
 @Configuration
 public class ModelMapperConfiguration {
-
     private final ModelMapper modelMapper;
 
     public ModelMapperConfiguration() {
@@ -18,5 +17,4 @@ public class ModelMapperConfiguration {
     public ModelMapper getModelMapper() {
         return modelMapper;
     }
-
 }

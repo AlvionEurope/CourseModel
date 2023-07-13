@@ -1,14 +1,6 @@
 package me.rudnikov.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.*;
 
 import lombok.Setter;
 import lombok.Getter;
@@ -56,7 +48,8 @@ public class Professor {
     private String address;
 
     @Column(
-            name = "professor_phone_number"
+            name = "professor_phone_number",
+            unique = true
     )
     private String phoneNumber;
 

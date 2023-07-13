@@ -2,6 +2,7 @@ package me.rudnikov.backend.service.impl;
 
 import me.rudnikov.backend.dto.create.StudentCreateDto;
 import me.rudnikov.backend.dto.read.StudentDto;
+import me.rudnikov.backend.dto.update.StudentUpdateDto;
 import me.rudnikov.backend.entity.Student;
 import me.rudnikov.backend.exception.ResourceAlreadyExistsException;
 import me.rudnikov.backend.exception.ResourceNotFoundException;
@@ -88,13 +89,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Boolean updateStudentById(Long id, StudentDto dto) {
-
+    @Transactional
+    public Boolean updateStudentById(Long id, StudentUpdateDto dto) {
         Student toUpdate = studentRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student with that id not found"));
 
-        // TODO: Implement student update
+        if (dto.getFullName() != null) {
+            toUpdate.setFullName(dto.getFullName());
+        }
+        if (dto.getAddress() != null) {
+            toUpdate.setAddress(dto.getAddress());
+        }
+        if (dto.getPhoneNumber() != null) {
+            toUpdate.setPhoneNumber(dto.getPhoneNumber());
+        }
+        if (dto.getEmail() != null) {
+            toUpdate.setEmail(dto.getEmail());
+        }
+        if (dto.getRecordBook() != null) {
+            toUpdate.setRecordBook(dto.getRecordBook());
+        }
 
         studentRepository.save(toUpdate);
 
@@ -103,7 +118,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Boolean deleteStudentById(Long id) {
-
         Student toDelete = studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student with that id not found"));
 

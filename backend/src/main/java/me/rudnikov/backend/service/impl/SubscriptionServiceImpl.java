@@ -37,7 +37,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         courseProgress.setStudent(student);
         courseProgress.setCourse(course);
 
-        course.addStudent(student);
+        course.getStudents().add(student);
         student.getCourseProgressList().add(courseProgress);
 
         studentRepository.save(student);

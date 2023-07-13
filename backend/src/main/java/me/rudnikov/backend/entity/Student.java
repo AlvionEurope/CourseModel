@@ -1,14 +1,6 @@
 package me.rudnikov.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.*;
 
 import lombok.Setter;
 import lombok.Getter;
@@ -56,17 +48,20 @@ public class Student {
     private String address;
 
     @Column(
-            name = "student_phone_number"
+            name = "student_phone_number",
+            unique = true
     )
     private String phoneNumber;
 
     @Column(
-            name = "student_email"
+            name = "student_email",
+            unique = true
     )
     private String email;
 
     @Column(
-            name = "student_record_book_number"
+            name = "student_record_book_number",
+            unique = true
     )
     private Integer recordBook;
 
@@ -77,7 +72,10 @@ public class Student {
 
     @OneToMany(
             mappedBy = "student",
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.REMOVE
+            }
     )
     private List<CourseProgress> courseProgressList;
 
@@ -88,7 +86,7 @@ public class Student {
                 .toList();
     }
 
-    public Float getAveragePerformanceByAllCourses() {
+    public Float getAveragePerformance() {
         return (float) this.courseProgressList
                 .stream()
                 .flatMap(courseProgress -> courseProgress.getGrades().stream())

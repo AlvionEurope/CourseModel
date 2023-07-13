@@ -3,13 +3,14 @@ package me.rudnikov.backend.service.impl;
 import lombok.AllArgsConstructor;
 import me.rudnikov.backend.dto.create.CourseCreateDto;
 import me.rudnikov.backend.dto.read.CourseDto;
-//import me.rudnikov.backend.dto.mapper.CourseMapper;
-//import me.rudnikov.backend.dto.mapper.StudentMapper;
+import me.rudnikov.backend.dto.update.CourseUpdateDto;
 import me.rudnikov.backend.entity.Course;
 import me.rudnikov.backend.entity.Professor;
 import me.rudnikov.backend.exception.ResourceAlreadyExistsException;
 import me.rudnikov.backend.exception.ResourceNotFoundException;
 import me.rudnikov.backend.repository.CourseRepository;
+import me.rudnikov.backend.repository.ProfessorRepository;
+import me.rudnikov.backend.repository.StudentRepository;
 import me.rudnikov.backend.service.CourseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +25,7 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
-//    private final CourseMapper courseMapper;
-//    private final StudentMapper studentMapper;
+    private final ProfessorRepository professorRepository;
     private final ModelMapper modelMapper;
 
     private final Integer PAGE_SIZE = 25;
@@ -80,13 +80,26 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Boolean updateCourseById(Long id, CourseDto dto) {
-
+    @Transactional
+    public Boolean updateCourseById(Long id, CourseUpdateDto dto) {
         Course toUpdate = courseRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Course with that id not found"));
 
-        // TODO: Implement course update
+        if (dto.getName() != null) {
+            toUpdate.setName(dto.getName());
+        }
+        if (dto.getNumber() != null) {
+            toUpdate.setNumber(dto.getNumber());
+        }
+        if (dto.getPrice() != null) {
+            toUpdate.setPrice(dto.getPrice());
+        }
+        if (dto.getProfessorId() != null) {
+            Professor professor = professorRepository.findById(dto.getProfessorId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Professor with that id not found"));
+            toUpdate.setProfessor(professor);
+        }
 
         courseRepository.save(toUpdate);
 

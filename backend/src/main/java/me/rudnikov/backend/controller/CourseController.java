@@ -2,6 +2,7 @@ package me.rudnikov.backend.controller;
 
 import me.rudnikov.backend.dto.create.CourseCreateDto;
 import me.rudnikov.backend.dto.read.CourseDto;
+import me.rudnikov.backend.dto.update.CourseUpdateDto;
 import me.rudnikov.backend.service.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +19,6 @@ import java.util.List;
 )
 @AllArgsConstructor
 public class CourseController {
-
     private final CourseService courseService;
 
     // Create course (HTTP::POST)
@@ -69,7 +69,7 @@ public class CourseController {
     )
     public ResponseEntity<Boolean> updateCourseById(
             @PathVariable("id") Long id,
-            CourseDto dto
+            @RequestBody CourseUpdateDto dto
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -88,5 +88,4 @@ public class CourseController {
                 .status(HttpStatus.OK)
                 .body(courseService.deleteCourseById(id));
     }
-
 }
