@@ -62,25 +62,25 @@ public class StudentController {
 
     // Read all students by fullName (HTTP::GET)
     @RequestMapping(
-            value = "{fullName}",
+            value = "",
             method = RequestMethod.GET,
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<StudentDto>> readAllStudentsByFullName(@PathVariable("fullName") String fullName) {
+    public ResponseEntity<List<StudentDto>> readAllStudentsByFullName(@RequestParam String fullName) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(studentService.readAllStudentsByFullName(fullName));
     }
 
-    // Read all students by fullName (HTTP::GET)
+    // Read all students by average performance (HTTP::GET)
     @RequestMapping(
-            value = "{avgPerformance}",
+            value = "",
             method = RequestMethod.GET,
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<StudentDto>> readAllStudentsByFullName(@PathVariable("avgPerformance") Float avgPerformance) {
+    public ResponseEntity<List<StudentDto>> readAllStudentsByAveragePerformance(@RequestParam Float avgPerformance) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(studentService.readAllStudentsByAvgPerformance(avgPerformance));

@@ -37,13 +37,23 @@ public class CourseProgress {
     )
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.REFRESH
+            }
+    )
     @JoinColumn(
             name = "student_id"
     )
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(
+            cascade = {
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH
+            }
+    )
     @JoinColumn(
             name = "course_id"
     )

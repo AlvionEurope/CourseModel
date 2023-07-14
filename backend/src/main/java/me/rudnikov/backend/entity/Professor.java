@@ -60,7 +60,19 @@ public class Professor {
 
     @OneToMany(
             mappedBy = "professor",
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.REFRESH
+            }
     )
     private List<Course> courses;
+
+    @PreRemove
+    private void removeFromCoursesBeforeDelete() {
+        this.courses
+                .forEach(course -> {
+                    course.setProfessor(null);
+                });
+    }
 }

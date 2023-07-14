@@ -117,6 +117,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public Boolean deleteStudentById(Long id) {
         Student toDelete = studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student with that id not found"));
