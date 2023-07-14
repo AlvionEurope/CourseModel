@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Builder;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity(
         name = "course"
@@ -84,6 +81,6 @@ public class Course {
             mappedBy = "course",
             cascade = CascadeType.REMOVE
     )
-    private Set<CourseProgress> courseProgresses;
+    private List<CourseProgress> courseProgresses;
 
 }

@@ -51,7 +51,6 @@ public class ProfessorController {
     @RequestMapping(
             value = "",
             method = RequestMethod.GET,
-            consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<ProfessorDto>> readAllProfessors() {
