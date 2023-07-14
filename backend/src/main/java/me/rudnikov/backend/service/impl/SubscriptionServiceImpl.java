@@ -11,9 +11,8 @@ import me.rudnikov.backend.service.SubscriptionService;
 
 import org.springframework.stereotype.Service;
 
-import org.modelmapper.ModelMapper;
-
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -22,9 +21,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
     private final CourseProgressRepository courseProgressRepository;
-    private final ModelMapper modelMapper;
 
     @Override
+    @Transactional
     public Boolean subscribeStudentToCourse(Long studentId, Long courseId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("User with that id not found"));
@@ -48,6 +47,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
+    @Transactional
     public Boolean unsubscribeStudentFromCourse(Long studentId, Long courseId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("User with that id not found"));
@@ -58,7 +58,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         student.getCourseProgressList()
                 .stream()
                 .filter(courseProgress -> courseProgress.getCourse().getName().equals(course.getName())
-                ).findFirst().ifPresent(courseProgressRepository::delete);
+                ).forEach(courseProgressRepository::delete);
 
         return true;
     }

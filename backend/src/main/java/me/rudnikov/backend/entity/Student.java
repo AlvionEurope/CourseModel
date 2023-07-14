@@ -74,10 +74,20 @@ public class Student {
             mappedBy = "student",
             fetch = FetchType.EAGER,
             cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.REFRESH,
                     CascadeType.REMOVE
             }
     )
     private List<CourseProgress> courseProgressList;
+
+    @PreRemove
+    private void removeFromCoursesBeforeDelete() {
+        this.courseProgressList
+                .forEach(courseProgress -> {
+                    courseProgress.getCourse().getStudents().remove(this);
+                });
+    }
 
     public List<Course> getListOfTakenCourses() {
         return this.courseProgressList

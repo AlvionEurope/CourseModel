@@ -107,6 +107,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public Boolean deleteCourseById(Long id) {
 
         Course toDelete = courseRepository.findById(id)

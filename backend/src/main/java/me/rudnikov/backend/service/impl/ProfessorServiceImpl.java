@@ -88,6 +88,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
+    @Transactional
     public Boolean deleteProfessorById(Long id) {
 
         Professor toDelete = professorRepository

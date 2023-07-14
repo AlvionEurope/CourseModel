@@ -16,8 +16,18 @@ import java.io.IOException;
 )
 @AllArgsConstructor
 public class ExcelReportController {
-
     private final ExcelReportService excelReportService;
+
+    // Create report by all professors (HTTP::GET)
+    @RequestMapping(
+            value = "/professors",
+            method = RequestMethod.GET
+    )
+    public ResponseEntity<String> createAllProfessorsReport() throws IOException {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(excelReportService.createAllProfessorsReport());
+    }
 
     // Create report by professor id (HTTP::GET)
     @RequestMapping(
@@ -29,5 +39,4 @@ public class ExcelReportController {
                 .status(HttpStatus.CREATED)
                 .body(excelReportService.createProfessorReport(id));
     }
-
 }
