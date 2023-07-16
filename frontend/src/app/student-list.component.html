@@ -1,0 +1,28 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ФИО</th>
+        <th scope="col">Адрес</th>
+        <th scope="col">Номер телефона</th>
+        <th scope="col">Email</th>
+        <th scope="col">Зачётная книжка</th>
+        <th scope="col">Средняя успеваемость</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.id }}</td>
+        <td>{{ student.fullName }}</td>
+        <td>{{ student.address }}</td>
+        <td>{{ student.phoneNumber }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.recordBook }}</td>
+        <td>{{ student.averagePerformance }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
