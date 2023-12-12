@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: paninskii
+      comment: "Create table teaching"
+      changes:
+        - createTable:
+            tableName: teaching
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: student_grade_book
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: course_number
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+        - addForeignKeyConstraint:
+            baseColumnNames: student_grade_book
+            baseTableName: teaching
+          #  baseTableSchemaName: public
+            constraintName: fk_teaching_student_grade_book_to_student_student_grade_book
+            referencedColumnNames: grade_book
+            referencedTableName: student
+        - addForeignKeyConstraint:
+            baseColumnNames: course_number
+            baseTableName: teaching
+            #  baseTableSchemaName: public
+            constraintName: fk_teaching_course_number_to_course_course_number
+            referencedColumnNames: course_number
+            referencedTableName: course
+
+#
+#  - changeSet:
+#      id: 4
+#      author: your_liquibase_username
+#      comment: "Create table teaching_to_score"
+#      changes:
+#        - createTable:
+#            tableName: teaching_to_score
+#            columns:
+#              - column:
+#                  name: id
+#                  type: BIGINT
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#              - column:
+#                  name: score
+#                  type: Integer
+#              - column:
+#                  name: date
+#                  type: date
+#
+#  - changeSet:
+#      id: 5
+#      author: your_liquibase_username
+#      comment: "Create table professor"
+#      changes:
+#        - createTable:
+#            tableName: professor
+#            columns:
+#              - column:
+#                  name: id
+#                  type: BIGINT
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#              - column:
+#                  name: score
+#                  type: Integer
+#              - column:
+#                  name: date
+#                  type: date
+#
+#

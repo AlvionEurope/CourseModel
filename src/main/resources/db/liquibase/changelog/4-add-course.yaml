@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: paninskii
+      comment: "add course"
+      changes:
+        - insert:
+            tableName: course
+            columns:
+              - column:
+                  name: course_name
+                  value: "admin"
+              - column:
+                  name: cost
+                  value: 120.81
+        - insert:
+            tableName: course
+            columns:
+              - column:
+                  name: course_name
+                  value: "PHP"
+              - column:
+                  name: cost
+                  value: 80.52
