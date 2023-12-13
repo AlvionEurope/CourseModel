@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: paninskii
+      comment: "Create table course"
+      changes:
+        - createTable:
+            tableName: teaching_to_score
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: teaching_id
+                  type: BIGINT
+              - column:
+                  name: date
+                  type: date
+              - column:
+                  name: score
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseColumnNames: teaching_id
+            baseTableName: teaching_to_score
+            onDelete: CASCADE
+            #  baseTableSchemaName: public
+            constraintName: fk_teaching_to_score_teaching_id_to_teaching_id
+            referencedColumnNames: id
+            referencedTableName: teaching

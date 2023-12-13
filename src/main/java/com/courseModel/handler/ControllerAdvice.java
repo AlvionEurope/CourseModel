@@ -28,8 +28,9 @@ public class ControllerAdvice {
     public ResponseEntity<Object> handleException(HTTPException e) {
         return new ResponseEntity<>(new ErrorResponse(e.getCode(), e.getMessage()), HttpStatus.valueOf(e.getCode()));
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception e) {
-        return new ResponseEntity<>(new ErrorResponse(500, e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ErrorResponse(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

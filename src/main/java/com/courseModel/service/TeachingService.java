@@ -1,6 +1,9 @@
 package com.courseModel.service;
 
+import com.courseModel.dto.ScoreDTO;
+import com.courseModel.dto.TeachingDTO;
 import com.courseModel.entity.Teaching;
+import com.courseModel.entity.TeachingToScore;
 
 import java.util.Optional;
 
@@ -9,5 +12,11 @@ public interface TeachingService {
 
     boolean delete(int studentGradeBook, int courseNumber);
 
-    Optional<Teaching> getTeaching(int studentGradeBook, int courseNumber);
+    Optional<Teaching> getTeachingOptional(int studentGradeBook, int courseNumber);
+
+    Teaching addScore(int courseNumber, int gradeBook, ScoreDTO score);
+
+    TeachingDTO getTeachingDTO(int courseNumber, int gradeBook);
+
+    Teaching getTeachingOrNotFound(int studentGradeBook, int courseNumber);
 }

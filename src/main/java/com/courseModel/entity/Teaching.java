@@ -8,11 +8,14 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static javax.persistence.EnumType.STRING;
 
 @Entity
 @Getter
-@Setter@Accessors(chain = true)
+@Setter
+@Accessors(chain = true)
 @ToString
 public class Teaching {
     @Id
@@ -22,5 +25,9 @@ public class Teaching {
     private int courseNumber;
     @Enumerated(value = STRING)
     private TeachingStatus status;
-
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "teachingId",
+            cascade = CascadeType.ALL)
+    private List<TeachingToScore> scores;
 }

@@ -9,7 +9,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: course_name
-                  value: "admin"
+                  value: "Java"
               - column:
                   name: cost
                   value: 120.81
