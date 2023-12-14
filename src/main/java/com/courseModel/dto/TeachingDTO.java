@@ -1,5 +1,6 @@
 package com.courseModel.dto;
 
+import com.courseModel.entity.Course;
 import com.courseModel.enums.TeachingStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -13,4 +14,5 @@ public class TeachingDTO {
     private int courseNumber;
     private TeachingStatus status;
     private List<Integer> scores;
+    private Integer finalScore;
 }

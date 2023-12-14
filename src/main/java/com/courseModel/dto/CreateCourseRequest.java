@@ -12,4 +12,5 @@ public class CreateCourseRequest {
     private String courseName;
     @NotNull
     private float cost;
+    private int professorId;
 }

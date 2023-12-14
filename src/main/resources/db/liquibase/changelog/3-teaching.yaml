@@ -27,6 +27,9 @@ databaseChangeLog:
               - column:
                   name: status
                   type: varchar(50)
+              - column:
+                  name: final_score
+                  type: BIGINT
         - addForeignKeyConstraint:
             baseColumnNames: student_grade_book
             baseTableName: teaching
@@ -38,6 +41,6 @@ databaseChangeLog:
             baseColumnNames: course_number
             baseTableName: teaching
             onDelete: CASCADE
-            constraintName: fk_teaching_course_number_to_course_course_number
-            referencedColumnNames: course_number
+            constraintName: fk_teaching_course_number_to_course_number
+            referencedColumnNames: number
             referencedTableName: course

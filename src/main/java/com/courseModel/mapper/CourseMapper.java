@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 public class CourseMapper {
     public Course convert(CreateCourseRequest request) {
         return new Course()
-                .setCourseName(request.getCourseName())
+                .setName(request.getCourseName())
                 .setCost(request.getCost());
     }
 
     public CourseDTO convert(Course course) {
         return new CourseDTO()
-                .setCourseNumber(course.getCourseNumber())
-                .setCourseName(course.getCourseName())
+                .setNumber(course.getNumber())
+                .setName(course.getName())
                 .setCost(course.getCost());
     }
 }

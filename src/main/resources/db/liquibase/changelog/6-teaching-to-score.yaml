@@ -27,7 +27,6 @@ databaseChangeLog:
             baseColumnNames: teaching_id
             baseTableName: teaching_to_score
             onDelete: CASCADE
-            #  baseTableSchemaName: public
             constraintName: fk_teaching_to_score_teaching_id_to_teaching_id
             referencedColumnNames: id
             referencedTableName: teaching

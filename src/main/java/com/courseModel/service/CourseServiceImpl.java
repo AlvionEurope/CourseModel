@@ -29,14 +29,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseDTO readByCourseNumber(int courseNumber) {
-        CourseDTO course = mapper.convert(getCourse(courseNumber));
-        return course;
+        return mapper.convert(getCourse(courseNumber));
     }
 
     @Override
     public CourseDTO updateByCourseNumber(int courseNumber, CreateCourseRequest request) {
         Course course = getCourse(courseNumber);
-        course.setCourseName(request.getCourseName())
+        course.setName(request.getCourseName())
                 .setCost(request.getCost());
         return mapper.convert(repository.save(course));
     }
@@ -53,13 +52,13 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void addStudent(int courseNumber, int gradeBook) {
         studentService.readByGradeBook(gradeBook);
-        getCourse(courseNumber);
+        Course course = getCourse(courseNumber);
         if (teachingService.getTeachingOptional(gradeBook, courseNumber).isPresent()) {
             throw new BadRequestException(
                     String.format("Студент с зачетной книжкой %d уже записан на курс с номером %d", gradeBook, courseNumber));
         }
         teachingService.create(new Teaching()
-                .setCourseNumber(courseNumber)
+                .setCourse(course)
                 .setStudentGradeBook(gradeBook)
                 .setStatus(TeachingStatus.NOT_STARTED));
     }

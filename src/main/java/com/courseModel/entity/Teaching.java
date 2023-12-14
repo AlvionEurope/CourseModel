@@ -17,12 +17,18 @@ import static javax.persistence.EnumType.STRING;
 @Setter
 @Accessors(chain = true)
 @ToString
+@NamedEntityGraph(name = "TeachingWithCourse",
+        attributeNodes = {
+                @NamedAttributeNode(value = "course")
+        }
+)
 public class Teaching {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int studentGradeBook;
-    private int courseNumber;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Course course;
     @Enumerated(value = STRING)
     private TeachingStatus status;
     @OneToMany(
@@ -30,4 +36,5 @@ public class Teaching {
             mappedBy = "teachingId",
             cascade = CascadeType.ALL)
     private List<TeachingToScore> scores;
+    private Integer finalScore;
 }

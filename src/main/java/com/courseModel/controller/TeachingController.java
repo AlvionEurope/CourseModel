@@ -1,5 +1,6 @@
 package com.courseModel.controller;
 
+import com.courseModel.dto.AverageScoreDTO;
 import com.courseModel.dto.ScoreDTO;
 import com.courseModel.dto.TeachingDTO;
 import com.courseModel.entity.TeachingToScore;
@@ -26,6 +27,20 @@ public class TeachingController {
                   @PathVariable(name = "grade-book") int gradeBook,
                   @Valid @RequestBody ScoreDTO score) {
         service.addScore(courseNumber, gradeBook, score);
+    }
+
+    @GetMapping(value = "/course/{course-number}/student/{grade-book}/score")
+    @ApiOperation(value = "Получение средней оценки по курсу")
+    AverageScoreDTO getAvgScore(@PathVariable(name = "course-number") int courseNumber,
+                                @PathVariable(name = "grade-book") int gradeBook) {
+        return service.getAvgScore(courseNumber, gradeBook);
+    }
+
+    @PostMapping(value = "/course/{course-number}/student/{grade-book}/final-score")
+    @ApiOperation(value = "Закончить обучение, поставить финальную оценку", notes = "статус обучения переходит в FINISHED")
+    TeachingDTO finishTeaching(@PathVariable(name = "course-number") int courseNumber,
+                               @PathVariable(name = "grade-book") int gradeBook) {
+        return service.finishTeaching(courseNumber, gradeBook);
     }
 
     @GetMapping(value = "/course/{course-number}/student/{grade-book}")

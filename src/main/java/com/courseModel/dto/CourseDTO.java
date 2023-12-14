@@ -8,7 +8,8 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class CourseDTO {
-    private int courseNumber;
-    private String courseName;
+    private int number;
+    private String name;
     private float cost;
+    private int professorId;
 }

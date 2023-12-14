@@ -8,7 +8,7 @@ databaseChangeLog:
             tableName: course
             columns:
               - column:
-                  name: course_name
+                  name: name
                   value: "Java"
               - column:
                   name: cost
@@ -17,7 +17,7 @@ databaseChangeLog:
             tableName: course
             columns:
               - column:
-                  name: course_name
+                  name: name
                   value: "PHP"
               - column:
                   name: cost

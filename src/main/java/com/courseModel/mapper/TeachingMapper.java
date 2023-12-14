@@ -11,9 +11,10 @@ import java.util.stream.Collectors;
 public class TeachingMapper {
     public TeachingDTO convert(Teaching teaching) {
         return new TeachingDTO()
-                .setCourseNumber(teaching.getCourseNumber())
+                .setCourseNumber(teaching.getCourse().getNumber())
                 .setStudentGradeBook(teaching.getStudentGradeBook())
                 .setStatus(teaching.getStatus())
-                .setScores(teaching.getScores().stream().map(TeachingToScore::getScore).collect(Collectors.toList()));
+                .setScores(teaching.getScores().stream().map(TeachingToScore::getScore).collect(Collectors.toList()))
+                .setFinalScore(teaching.getFinalScore());
     }
 }

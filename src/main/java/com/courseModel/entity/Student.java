@@ -4,10 +4,8 @@ package com.courseModel.entity;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,5 +20,4 @@ public class Student {
     private String address;
     private String phone;
     private String email;
-
 }

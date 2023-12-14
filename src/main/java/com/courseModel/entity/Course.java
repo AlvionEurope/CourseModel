@@ -19,7 +19,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int courseNumber;
-    private String courseName;
+    private int number;
+    private String name;
     private float cost;
 }

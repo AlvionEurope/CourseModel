@@ -1,14 +1,14 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 7
       author: paninskii
-      comment: "Create table course"
+      comment: "Create table professor"
       changes:
         - createTable:
-            tableName: course
+            tableName: professor
             columns:
               - column:
-                  name: number
+                  name: id
                   type: BIGINT
                   autoIncrement: true
                   constraints:
@@ -18,11 +18,11 @@ databaseChangeLog:
                   name: name
                   type: varchar(50)
               - column:
-                  name: cost
+                  name: address
+                  type: varchar(150)
+              - column:
+                  name: phone
+                  type: varchar(50)
+              - column:
+                  name: payment
                   type: float
-        - addForeignKeyConstraint:
-            baseColumnNames: professor_id
-            baseTableName: course
-            constraintName: fk_course_professor_id_to_professor_id
-            referencedColumnNames: id
-            referencedTableName: professor
