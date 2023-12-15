@@ -4,6 +4,7 @@ package com.courseModel.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 
 @Data
 public class CreateProfessorRequest {
@@ -13,6 +14,6 @@ public class CreateProfessorRequest {
     private String address;
     @NotEmpty
     private String phone;
-    @NotEmpty
+    @PositiveOrZero
     private float payment;
 }

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 4
       author: paninskii
       comment: "Create table course"
       changes:
@@ -20,6 +20,9 @@ databaseChangeLog:
               - column:
                   name: cost
                   type: float
+              - column:
+                  name: professor_id
+                  type: BIGINT
         - addForeignKeyConstraint:
             baseColumnNames: professor_id
             baseTableName: course

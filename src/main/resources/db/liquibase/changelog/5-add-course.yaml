@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 4
+      id: 5
       author: paninskii
       comment: "add course"
       changes:
@@ -13,6 +13,9 @@ databaseChangeLog:
               - column:
                   name: cost
                   value: 120.81
+              - column:
+                  name: professor_id
+                  value: 1
         - insert:
             tableName: course
             columns:
@@ -22,3 +25,6 @@ databaseChangeLog:
               - column:
                   name: cost
                   value: 80.52
+              - column:
+                  name: professor_id
+                  value: 2

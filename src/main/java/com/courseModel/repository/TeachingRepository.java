@@ -8,8 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface TeachingRepository extends JpaRepository<Teaching,Integer> {
-    Optional<Teaching> findByStudentGradeBookAndCourseNumber(int studentGradeBook,int courseNumber);
+public interface TeachingRepository extends JpaRepository<Teaching, Integer> {
+    Optional<Teaching> findByStudentGradeBookAndCourseNumber(int studentGradeBook, int courseNumber);
+
     @EntityGraph(value = "TeachingWithCourse")
     @Query("SELECT teaching FROM Teaching teaching " +
             "INNER JOIN fetch Course course ON (teaching.course.number = course.number) " +

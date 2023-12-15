@@ -19,13 +19,14 @@ public class CourseServiceImpl implements CourseService {
     final CourseMapper mapper;
     final StudentService studentService;
     final TeachingService teachingService;
+    final ProfessorService professorService;
 
     @Override
     public CourseDTO create(CreateCourseRequest courseRequest) {
+        validateProfessorId(courseRequest.getProfessorId());
         Course course = mapper.convert(courseRequest);
         return mapper.convert(repository.save(course));
     }
-
 
     @Override
     public CourseDTO readByCourseNumber(int courseNumber) {
@@ -34,9 +35,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseDTO updateByCourseNumber(int courseNumber, CreateCourseRequest request) {
+        validateProfessorId(request.getProfessorId());
         Course course = getCourse(courseNumber);
         course.setName(request.getCourseName())
-                .setCost(request.getCost());
+                .setCost(request.getCost())
+                .setProfessorId(request.getProfessorId());
         return mapper.convert(repository.save(course));
     }
 
@@ -67,12 +70,22 @@ public class CourseServiceImpl implements CourseService {
     public void deleteStudent(int courseNumber, int gradeBook) {
         if (teachingService.getTeachingOptional(gradeBook, courseNumber).isPresent()) {
             teachingService.delete(gradeBook, courseNumber);
-
         }
     }
 
     private Course getCourse(int courseNumber) {
         return repository.findById(courseNumber)
                 .orElseThrow(() -> new NotFoundException(String.format("Курс с номером %d не найден", courseNumber)));
+    }
+
+    private void validateProfessorId(Integer professorId) {
+        if (professorId == null) {
+            return;
+        }
+        try {
+            professorService.getProfessor(professorId);
+        } catch ( NotFoundException e ) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 }

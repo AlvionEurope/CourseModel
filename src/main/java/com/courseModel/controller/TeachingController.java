@@ -3,11 +3,9 @@ package com.courseModel.controller;
 import com.courseModel.dto.AverageScoreDTO;
 import com.courseModel.dto.ScoreDTO;
 import com.courseModel.dto.TeachingDTO;
-import com.courseModel.entity.TeachingToScore;
 import com.courseModel.service.TeachingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +16,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Api(tags = "teaching")
 public class TeachingController {
-
     final TeachingService service;
 
     @PostMapping(value = "/course/{course-number}/student/{grade-book}/score")
@@ -49,5 +46,4 @@ public class TeachingController {
                             @PathVariable(name = "grade-book") int gradeBook) {
         return service.getTeachingDTO(courseNumber, gradeBook);
     }
-
 }

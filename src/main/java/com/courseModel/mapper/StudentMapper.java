@@ -16,6 +16,7 @@ public class StudentMapper {
                 .setPhone(request.getPhone())
                 .setEmail(request.getEmail());
     }
+
     public StudentDTO convert(Student student) {
         return new StudentDTO()
                 .setGradeBook(student.getGradeBook())

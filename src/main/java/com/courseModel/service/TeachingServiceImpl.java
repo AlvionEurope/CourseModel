@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
@@ -60,7 +59,9 @@ public class TeachingServiceImpl implements TeachingService {
         if (!teaching.getStatus().equals(TeachingStatus.IN_PROGRESS)) {
             throw new BadRequestException("Обучение не в статусе IN_PROGRESS, текущий статус обучения " + teaching.getStatus());
         }
-        OptionalDouble avrScore = teaching.getScores().stream().mapToInt(TeachingToScore::getScore).average();
+        OptionalDouble avrScore = teaching.getScores().stream()
+                .mapToInt(TeachingToScore::getScore)
+                .average();
         if (avrScore.isEmpty()) {
             throw new NotFoundException("Обучение не содержит оценок");
         }
@@ -74,7 +75,9 @@ public class TeachingServiceImpl implements TeachingService {
             throw new BadRequestException("Нельзя завершить обучение если оно не в статусе IN_PROGRESS, текущий статус обучения " + teaching.getStatus());
         }
         teaching.setStatus(TeachingStatus.FINISHED);
-        OptionalDouble avrScore = teaching.getScores().stream().mapToInt(TeachingToScore::getScore).average();
+        OptionalDouble avrScore = teaching.getScores().stream()
+                .mapToInt(TeachingToScore::getScore)
+                .average();
         if (avrScore.isEmpty()) {
             throw new BadRequestException("Обучение не содержит оценок, для финальной оценки в обучении должна быть хотя бы одна оценка");
         }

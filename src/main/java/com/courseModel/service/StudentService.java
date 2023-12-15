@@ -17,6 +17,8 @@ public interface StudentService {
     boolean deleteByGradeBook(int gradeBook);
 
     void signUpCourse(int courseNumber, int gradeBook);
+
     List<Course> finishedCoursesByGradeBook(int gradeBook);
+
     AverageScoreDTO getAvgGrade(int gradeBook);
 }

@@ -1,10 +1,6 @@
 package com.courseModel.exception;
 
-public class NotFoundException extends HTTPException{
-    public NotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
+public class NotFoundException extends HTTPException {
     public NotFoundException(String message) {
         super(message);
     }

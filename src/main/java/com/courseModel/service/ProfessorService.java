@@ -1,9 +1,8 @@
 package com.courseModel.service;
 
 import com.courseModel.dto.CreateProfessorRequest;
-import com.courseModel.dto.CreateStudentRequest;
 import com.courseModel.dto.ProfessorDTO;
-import com.courseModel.dto.StudentDTO;
+import com.courseModel.entity.Professor;
 
 public interface ProfessorService {
     ProfessorDTO create(CreateProfessorRequest request);
@@ -14,4 +13,7 @@ public interface ProfessorService {
 
     boolean deleteById(int id);
 
+    byte[] createReport();
+
+    Professor getProfessor(int id);
 }

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AverageScoreDTO {
-   private float averageScore;
+    private float averageScore;
 }

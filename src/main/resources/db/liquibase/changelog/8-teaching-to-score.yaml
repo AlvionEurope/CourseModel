@@ -1,8 +1,8 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 8
       author: paninskii
-      comment: "Create table course"
+      comment: "Create table teaching_to_score"
       changes:
         - createTable:
             tableName: teaching_to_score

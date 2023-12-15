@@ -3,11 +3,9 @@ package com.courseModel.entity;
 import com.courseModel.enums.TeachingStatus;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-
 import java.util.List;
 
 import static javax.persistence.EnumType.STRING;
@@ -16,7 +14,6 @@ import static javax.persistence.EnumType.STRING;
 @Getter
 @Setter
 @Accessors(chain = true)
-@ToString
 @NamedEntityGraph(name = "TeachingWithCourse",
         attributeNodes = {
                 @NamedAttributeNode(value = "course")

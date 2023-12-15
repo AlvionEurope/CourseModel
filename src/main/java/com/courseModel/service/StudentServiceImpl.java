@@ -2,19 +2,15 @@ package com.courseModel.service;
 
 import com.courseModel.dto.AverageScoreDTO;
 import com.courseModel.dto.CreateStudentRequest;
-import com.courseModel.dto.ScoreDTO;
 import com.courseModel.dto.StudentDTO;
 import com.courseModel.entity.Course;
 import com.courseModel.entity.Student;
 import com.courseModel.entity.Teaching;
-import com.courseModel.entity.TeachingToScore;
 import com.courseModel.enums.TeachingStatus;
 import com.courseModel.exception.BadRequestException;
 import com.courseModel.exception.NotFoundException;
 import com.courseModel.mapper.StudentMapper;
-import com.courseModel.repository.CourseRepository;
 import com.courseModel.repository.StudentRepository;
-import com.courseModel.repository.TeachingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +36,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentDTO readByGradeBook(int gradeBook) {
-        StudentDTO student = mapper.convert(getStudent(gradeBook));
-        return student;
+        return mapper.convert(getStudent(gradeBook));
     }
 
     @Override
@@ -75,8 +70,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public AverageScoreDTO getAvgGrade(int gradeBook) {
-        OptionalDouble avrScore = teachingService.getFinishedTeachingByGradeBook(gradeBook)
-                .stream().mapToInt(Teaching::getFinalScore).average();
+        OptionalDouble avrScore = teachingService.getFinishedTeachingByGradeBook(gradeBook).stream()
+                .mapToInt(Teaching::getFinalScore)
+                .average();
         if (avrScore.isEmpty()) {
             throw new NotFoundException("Нет завершенных курсов");
         }

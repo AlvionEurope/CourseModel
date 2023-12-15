@@ -1,7 +1,9 @@
 package com.courseModel.controller;
 
+import com.courseModel.dto.AverageScoreDTO;
 import com.courseModel.dto.CreateStudentRequest;
 import com.courseModel.dto.StudentDTO;
+import com.courseModel.entity.Course;
 import com.courseModel.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -30,6 +33,19 @@ public class StudentController {
     public StudentDTO readByGradeBook(@PathVariable(name = "grade-book") int gradeBook) {
         return service.readByGradeBook(gradeBook);
     }
+
+    @GetMapping(value = "/{grade-book}/courses")
+    @ApiOperation(value = "Получение списка завершенных курсов")
+    public List<Course> getFinishedCoursesByGradeBook(@PathVariable(name = "grade-book") int gradeBook) {
+        return service.finishedCoursesByGradeBook(gradeBook);
+    }
+
+    @PostMapping(value = "/{grade-book}")
+    @ApiOperation(value = "Получение средней успеваемости студента по номеру зачетной книжки")
+    public AverageScoreDTO getAvgGrade(int gradeBook) {
+        return service.getAvgGrade(gradeBook);
+    }
+
 
     @PutMapping(value = "/{grade-book}")
     @ApiOperation(value = "Изменение студента по номеру зачетной книжки")

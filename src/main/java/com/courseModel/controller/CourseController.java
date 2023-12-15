@@ -56,5 +56,4 @@ public class CourseController {
     public void deleteStudent(@PathVariable(name = "course-number") int courseNumber, @PathVariable(name = "grade-book") int gradeBook) {
         service.deleteStudent(courseNumber, gradeBook);
     }
-
 }

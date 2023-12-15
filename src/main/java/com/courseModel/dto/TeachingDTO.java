@@ -1,6 +1,6 @@
 package com.courseModel.dto;
 
-import com.courseModel.entity.Course;
+
 import com.courseModel.enums.TeachingStatus;
 import lombok.Data;
 import lombok.experimental.Accessors;

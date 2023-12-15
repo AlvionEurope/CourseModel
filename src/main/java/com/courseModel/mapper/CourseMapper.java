@@ -10,13 +10,15 @@ public class CourseMapper {
     public Course convert(CreateCourseRequest request) {
         return new Course()
                 .setName(request.getCourseName())
-                .setCost(request.getCost());
+                .setCost(request.getCost())
+                .setProfessorId(request.getProfessorId());
     }
 
     public CourseDTO convert(Course course) {
         return new CourseDTO()
                 .setNumber(course.getNumber())
                 .setName(course.getName())
-                .setCost(course.getCost());
+                .setCost(course.getCost())
+                .setProfessorId(course.getProfessorId());
     }
 }

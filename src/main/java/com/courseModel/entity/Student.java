@@ -5,13 +5,11 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Accessors(chain = true)
-@ToString
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
