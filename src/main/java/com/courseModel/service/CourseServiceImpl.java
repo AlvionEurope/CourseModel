@@ -37,7 +37,7 @@ public class CourseServiceImpl implements CourseService {
     public CourseDTO updateByCourseNumber(int courseNumber, CreateCourseRequest request) {
         validateProfessorId(request.getProfessorId());
         Course course = getCourse(courseNumber);
-        course.setName(request.getCourseName())
+        course.setName(request.getName())
                 .setCost(request.getCost())
                 .setProfessorId(request.getProfessorId());
         return mapper.convert(repository.save(course));

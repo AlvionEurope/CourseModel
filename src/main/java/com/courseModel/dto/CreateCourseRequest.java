@@ -9,7 +9,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Data
 public class CreateCourseRequest {
     @NotEmpty
-    private String courseName;
+    private String name;
     @PositiveOrZero
     private float cost;
     private Integer professorId;

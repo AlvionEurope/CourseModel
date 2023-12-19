@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class CourseMapper {
     public Course convert(CreateCourseRequest request) {
         return new Course()
-                .setName(request.getCourseName())
+                .setName(request.getName())
                 .setCost(request.getCost())
                 .setProfessorId(request.getProfessorId());
     }
