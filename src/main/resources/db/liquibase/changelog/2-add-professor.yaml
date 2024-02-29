@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: paninskii
+      comment: "add professor"
+      changes:
+        - insert:
+            tableName: professor
+            columns:
+              - column:
+                  name: name
+                  value: "Иван"
+              - column:
+                  name: address
+                  value: "Рязань"
+              - column:
+                  name: phone
+                  value: "8-920-444-01-00"
+              - column:
+                  name: payment
+                  value: 45.80
+        - insert:
+            tableName: professor
+            columns:
+              - column:
+                  name: name
+                  value: "Валерий"
+              - column:
+                  name: address
+                  value: "Рязань"
+              - column:
+                  name: phone
+                  value: "8-920-888-02-00"
+              - column:
+                  name: payment
+                  value: 47.52

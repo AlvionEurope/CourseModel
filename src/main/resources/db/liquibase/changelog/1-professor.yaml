@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: paninskii
+      comment: "Create table professor"
+      changes:
+        - createTable:
+            tableName: professor
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+              - column:
+                  name: address
+                  type: varchar(150)
+              - column:
+                  name: phone
+                  type: varchar(50)
+              - column:
+                  name: payment
+                  type: float

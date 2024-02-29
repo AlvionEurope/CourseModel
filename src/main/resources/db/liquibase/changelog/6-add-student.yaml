@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: paninskii
+      comment: "add student"
+      changes:
+        - insert:
+            tableName: student
+            columns:
+              - column:
+                  name: name
+                  value: "Вова"
+              - column:
+                  name: address
+                  value: "Рязань"
+              - column:
+                  name: phone
+                  value: "8-920-444-44-81"
+              - column:
+                  name: email
+                  value: "vova@mail.com"
+        - insert:
+            tableName: student
+            columns:
+              - column:
+                  name: name
+                  value: "Дима"
+              - column:
+                  name: address
+                  value: "Рязань"
+              - column:
+                  name: phone
+                  value: "8-920-888-40-45"
+              - column:
+                  name: email
+                  value: "dima@mail.com"
+        - insert:
+            tableName: student
+            columns:
+              - column:
+                  name: name
+                  value: "Рома"
+              - column:
+                  name: address
+                  value: "Владивосток"
+              - column:
+                  name: phone
+                  value: "8-920-555-36-66"
+              - column:
+                  name: email
+                  value: "roma@mail.com"

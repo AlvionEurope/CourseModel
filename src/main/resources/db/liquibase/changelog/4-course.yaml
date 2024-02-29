@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: paninskii
+      comment: "Create table course"
+      changes:
+        - createTable:
+            tableName: course
+            columns:
+              - column:
+                  name: number
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+              - column:
+                  name: cost
+                  type: float
+              - column:
+                  name: professor_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseColumnNames: professor_id
+            baseTableName: course
+            constraintName: fk_course_professor_id_to_professor_id
+            referencedColumnNames: id
+            referencedTableName: professor

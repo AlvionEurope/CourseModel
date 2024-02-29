@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: paninskii
+      comment: "Create table teaching"
+      changes:
+        - createTable:
+            tableName: teaching
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: student_grade_book
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: course_number
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+              - column:
+                  name: final_score
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseColumnNames: student_grade_book
+            baseTableName: teaching
+            onDelete: CASCADE
+            constraintName: fk_teaching_student_grade_book_to_student_student_grade_book
+            referencedColumnNames: grade_book
+            referencedTableName: student
+        - addForeignKeyConstraint:
+            baseColumnNames: course_number
+            baseTableName: teaching
+            onDelete: CASCADE
+            constraintName: fk_teaching_course_number_to_course_number
+            referencedColumnNames: number
+            referencedTableName: course
